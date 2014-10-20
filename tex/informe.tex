@@ -880,7 +880,8 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \begin{ocl}{Cada viaje de tipo registrado el mismo usuario que su solicitud}
   context Viaje de Usuario Registrado
-  inv: self.solicitud.isKindOf(Solicitud de Viaje Web/Móvil) implies self.solicitud.usuario == self.usuario
+  inv: self.solicitud.isKindOf(Solicitud de Viaje Web/Móvil) implies
+       self.solicitud.usuario == self.usuario
 \end{ocl}
 
 \begin{ocl}{Cada viaje de tipo no registrado tenga solicitud telefónica}
@@ -890,7 +891,8 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \begin{ocl}{Cada viaje de tipo no registrado el mismo usuario que su solicitud}
   context Viaje de Usuario No Registrado
-  inv: self.solicitud.isKindOf(Solicitud de Viaje Telefónica) implies self.solicitud.usuario == self.usuario
+  inv: self.solicitud.isKindOf(Solicitud de Viaje Telefónica) implies 
+       self.solicitud.usuario == self.usuario
 \end{ocl}
 
 
@@ -901,41 +903,24 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \begin{ocl}{Toda Preferencia de Coche, el coche del viaje (si tiene viaje), es uno de los preferidos}
   context Preferencia de Coche
-  inv: self.solicitudes $\rightarrow$ forAll( x | x.viaje.isNotEmpty() implies self.taxis $\rightarrow$ include(x.viaje.taxi))
+  inv: self.solicitudes -> forAll( x | x.viaje.isNotEmpty() implies 
+       self.taxis -> include(x.viaje.taxi))
 \end{ocl}
 
 
 \begin{ocl}{Toda Preferencia de Taxista, el Taxista del viaje (si tiene viaje), es uno de los preferidos.}
   context Preferencia de Taxista
-  inv: self.solicitudes $\rightarrow$ forAll( x | x.viaje.isNotEmpty() implies self.taxistas $\rightarrow$ include(x.viaje.taxista))
+  inv: self.solicitudes -> forAll( x | x.viaje.isNotEmpty() implies 
+       self.taxistas -> include(x.viaje.taxista))
 \end{ocl}
 
 
 \begin{ocl}{Toda Preferencia de Calificación del taxista, el taxista del viaje (si tiene viaje), tiene calificación mayor o igual a la elegida.}
   context Preferencia de Calificación de Taxista
-  inv: self.solicitudes $\rightarrow$ forAll( s | s.viaje.isNotEmpty() implies s.viaje.taxista.viajes $\rightarrow$ select(v.calificación | v.isKindOf(Viaje de Usuario Registrado) and v.calificación.isNotEmpty()) $\rightarrow$ collect(c | c.puntaje) $\rightarrow$ mean() >= self.calificación )
+  inv: self.solicitudes -> forAll( s | s.viaje.isNotEmpty() implies 
+       s.viaje.taxista.viajes -> select(v.calificación | v.isKindOf(Viaje de Usuario Registrado) 
+       and v.calificación.isNotEmpty()) -> collect(c | c.puntaje) -> mean() >= self.calificación )
 \end{ocl}
-% 
-% \begin{ocl}{Distribución}
-%   context Estación
-%   inv: self.distribución.horaNoPico =
-%            Bicicleta.allInstances()->size() /
-%            Estación.allInstances()->size()
-%   inv: self.distribución.horaPico =
-%            (if self.oclIsTypeOf(EstaciónPeriférica) then
-%                self.estadísticas.promedioHoraPico * 0.25
-%            else
-%                self.estadísticas.promedioHoraPico
-%            endif) /
-%            Estación.allInstances()
-%                ->collect(if oclIsTypeOf(EstaciónPeriférica) then
-%                              estadísticas.promedioHoraPico * 0.25
-%                          else
-%                              estadísticas.promedioHoraPico
-%                          endif)
-%                ->sum() *
-%            Bicicleta.allInstances()->size()
-% \end{ocl}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
