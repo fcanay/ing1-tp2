@@ -836,8 +836,6 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 A continuación realizaremos aclaraciones sobre algunas de las clases y asociaciones presentadas previamente:
 
 \begin{description}
-  \item[Taxi:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
-
   \item[Usuario:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
 
   \item[Usuario No Registrado:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
@@ -947,101 +945,106 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \section{Diagramas de actividad}
 
+\subsection{Logueo de Usuario}
+\label{sec:da-logueo-de-usuario}
 
-\subsection{Entrega de bicicleta}
-\label{sec:da-entrega-bicicleta}
-
-\diagramav{da-entrega-bicicleta}
-
-
-\subsection{Devolución de bicicleta}
-\label{sec:da-devolucion-bicicleta}
-
-\diagramav{da-devolucion-bicicleta}
+\diagramav{da-logueo-de-usuario}
 
 
-\subsection{Penalizaciones} 
-\label{sec:da-penalizaciones}
+% \subsection{Entrega de bicicleta}
+% \label{sec:da-entrega-bicicleta}
 
-\diagramavtrim{da-penalizaciones}{4cm}
-
-Este diagrama describe la asignación de penalizaciones ante la devolución de una bicicleta. Las reglas de penalización son las siguientes:
-
-\begin{itemize}
-  \item Si la bicicleta es devuelta por una persona que no la retiró (sea usuario o no), el usuario que la retiró es penalizado con ``BiciDevueltaPorOtraPersona''.
-
-  \item Si la bicicleta es devuelta por el usuario que la retiró y está en mal estado, el usuario (que la retiró y también devolvió) es penalizado con ``DevoluciónEnMalEstado''.
-\end{itemize}
-
-Observar que asumimos que siempre que una bicicleta es devuelta, había sido retirada por alguien (el ``usuario que la retiró'' siempre existe). Esto se debe a que no tenemos en cuenta en nuestro modelo la baja de usuarios ni tampoco el robo de bicicletas directamente de la estación (sin que hayan sido entregadas a un usuario).
-
-Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son únicamente las que se desencadenan ante la devolución de una bicicleta. Ver {\bf FSM ``Penalizaciones''} (Sección \ref{fsm:penalizaciones}).
+% \diagramav{da-entrega-bicicleta}
 
 
-\subsection{Justificar penalizaciones}
-\label{sec:da-justificar-penalizacion}
+% \subsection{Devolución de bicicleta}
+% \label{sec:da-devolucion-bicicleta}
 
-\diagramav{da-justificar-penalizacion}
-
-
-\subsection{Pago de multas}
-\label{sec:da-pago-de-multas}
-
-\diagramavtrim{da-pago-de-multas}{5cm}
-
-En el diagrama, se observa la utilización de dos CU, \textbf{Consultando monto a pagar de un DNI} y \textbf{Registrando pago de multa}. Las acciones y eventos que ocurren desde el inicio del DA hasta la acción \textit{Decide si quiere realizar el pago} corresponden al primer CU mencionado, mientras que las actividades siguientes, si decide realizar el pago, corresponden al segundo CU mencionado.
-
-\subsection{Empresa de transporte: retiro de bicicletas}
-\label{sec:da-transporte-retiro}
-
-\diagramav{da-transporte-retiro}
+% \diagramav{da-devolucion-bicicleta}
 
 
-\subsection{Empresa de transporte: entrega de bicicletas}
-\label{sec:da-transporte-entrega}
+% \subsection{Penalizaciones} 
+% \label{sec:da-penalizaciones}
 
-\diagramav{da-transporte-entrega}
+% \diagramavtrim{da-penalizaciones}{4cm}
 
+% Este diagrama describe la asignación de penalizaciones ante la devolución de una bicicleta. Las reglas de penalización son las siguientes:
 
-\subsection{Agregar bicicletas al sistema}
-\label{sec:da-agregar-bicicletas}
+% \begin{itemize}
+%   \item Si la bicicleta es devuelta por una persona que no la retiró (sea usuario o no), el usuario que la retiró es penalizado con ``BiciDevueltaPorOtraPersona''.
 
-\diagramav{da-agregar-bicicletas}
+%   \item Si la bicicleta es devuelta por el usuario que la retiró y está en mal estado, el usuario (que la retiró y también devolvió) es penalizado con ``DevoluciónEnMalEstado''.
+% \end{itemize}
 
+% Observar que asumimos que siempre que una bicicleta es devuelta, había sido retirada por alguien (el ``usuario que la retiró'' siempre existe). Esto se debe a que no tenemos en cuenta en nuestro modelo la baja de usuarios ni tampoco el robo de bicicletas directamente de la estación (sin que hayan sido entregadas a un usuario).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Máquinas de estado                                                        %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\section{Máquinas de Estado}
-Las máquinas de estado en las secciones siguientes están sincronizadas entre sí pero son presentadas en distintos ámbitos para resaltar los aspectos interesantes de cada caso.
-
-\subsection{Bicicleta}
-
-La siguiente máquina de estados representa a una bicicleta física (no la bicicleta lógica cuyos movimientos registra el sistema).
-Observar que si es robada o perdida, pasa a un estado en \emph{deadlock}, ya que es descartada y eliminada del sistema.
-
-\diagramav{fsm-bicicleta}
-
-\subsection{Distribución de bicicletas}
-
-La siguiente máquina de estados representa al subsistema que gestiona la temporización de la distribución de bicicletas.
-
-\diagramav{fsm-distribucion-de-bicicletas}
+% Cabe aclarar que estas no son todas las penalizaciones posibles, sino que son únicamente las que se desencadenan ante la devolución de una bicicleta. Ver {\bf FSM ``Penalizaciones''} (Sección \ref{fsm:penalizaciones}).
 
 
-\subsection{Penalizaciones}
-\label{fsm:penalizaciones}
+% \subsection{Justificar penalizaciones}
+% \label{sec:da-justificar-penalizacion}
 
-Las dos máquinas de estado siguientes representan:
-\begin{description}
- \item[Sistema:] Es el subsistema que gestiona las penalizaciones de tiempo para un usuario dado.
- \item[Usuario:] Es el usuario asociado al subsistema mencionado.
-\end{description}
-En sincronía especifican cómo un usuario será penalizado si retiene la bicicleta demasiado tiempo y las acciones que toma el sistema ante ello. Observar que las penalizaciones ligadas a la devolución de la bicicleta no están especificadas en este diagrama (ver {\bf DA: ``Penalizaciones''} \ref{sec:da-penalizaciones}).
+% \diagramav{da-justificar-penalizacion}
 
-\diagramav{fsm-penalizaciones}
+
+% \subsection{Pago de multas}
+% \label{sec:da-pago-de-multas}
+
+% \diagramavtrim{da-pago-de-multas}{5cm}
+
+% En el diagrama, se observa la utilización de dos CU, \textbf{Consultando monto a pagar de un DNI} y \textbf{Registrando pago de multa}. Las acciones y eventos que ocurren desde el inicio del DA hasta la acción \textit{Decide si quiere realizar el pago} corresponden al primer CU mencionado, mientras que las actividades siguientes, si decide realizar el pago, corresponden al segundo CU mencionado.
+
+% \subsection{Empresa de transporte: retiro de bicicletas}
+% \label{sec:da-transporte-retiro}
+
+% \diagramav{da-transporte-retiro}
+
+
+% \subsection{Empresa de transporte: entrega de bicicletas}
+% \label{sec:da-transporte-entrega}
+
+% \diagramav{da-transporte-entrega}
+
+
+% \subsection{Agregar bicicletas al sistema}
+% \label{sec:da-agregar-bicicletas}
+
+% \diagramav{da-agregar-bicicletas}
+
+
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %% Máquinas de estado                                                        %%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% \section{Máquinas de Estado}
+% Las máquinas de estado en las secciones siguientes están sincronizadas entre sí pero son presentadas en distintos ámbitos para resaltar los aspectos interesantes de cada caso.
+
+% \subsection{Bicicleta}
+
+% La siguiente máquina de estados representa a una bicicleta física (no la bicicleta lógica cuyos movimientos registra el sistema).
+% Observar que si es robada o perdida, pasa a un estado en \emph{deadlock}, ya que es descartada y eliminada del sistema.
+
+% \diagramav{fsm-bicicleta}
+
+% \subsection{Distribución de bicicletas}
+
+% La siguiente máquina de estados representa al subsistema que gestiona la temporización de la distribución de bicicletas.
+
+% \diagramav{fsm-distribucion-de-bicicletas}
+
+
+% \subsection{Penalizaciones}
+% \label{fsm:penalizaciones}
+
+% Las dos máquinas de estado siguientes representan:
+% \begin{description}
+%  \item[Sistema:] Es el subsistema que gestiona las penalizaciones de tiempo para un usuario dado.
+%  \item[Usuario:] Es el usuario asociado al subsistema mencionado.
+% \end{description}
+% En sincronía especifican cómo un usuario será penalizado si retiene la bicicleta demasiado tiempo y las acciones que toma el sistema ante ello. Observar que las penalizaciones ligadas a la devolución de la bicicleta no están especificadas en este diagrama (ver {\bf DA: ``Penalizaciones''} \ref{sec:da-penalizaciones}).
+
+% \diagramav{fsm-penalizaciones}
 
 
 \end{document}
