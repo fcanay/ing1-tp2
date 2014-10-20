@@ -182,7 +182,7 @@ Ingeniería de Software I
 
 \vspace{1cm}
 
-Primer Cuatrimestre de 2014
+Segundo Cuatrimestre de 2014
 
 \vspace{4cm}
 
@@ -190,11 +190,11 @@ Primer Cuatrimestre de 2014
 \hline
 Apellido y Nombre & LU & E-mail\\
 \hline
-Santiago Aboy Solanes && 175/12 && santiaboy2@hotmail.com
-Emilio Almansi && 674/12 && ealmansi@gmail.com
-Federico Canay && 250/12 && fcanay@hotmail.com
-Maximiliano Contrufo && 336/12 && mcontru@gmail.com 
-Facundo Decroix && 842/11 && fndecroix92@hotmail.com
+Santiago Aboy Solanes & 175/12 & santiaboy2@hotmail.com\\
+Emilio Almansi & 674/12 & ealmansi@gmail.com\\
+Federico Canay & 250/12 & fcanay@hotmail.com\\
+Maximiliano Contrufo & 336/12 & mcontru@gmail.com\\ 
+Facundo Decroix & 842/11 & fndecroix92@hotmail.com\\
 \hline
 \end{tabular}
 
@@ -717,264 +717,70 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 
 \subsection{OCL}
-
-
-\subsubsection{Penalizaciones}
-
-\begin{ocl}{Ningún campo de las penalizaciones es null}
-  context Penalización
-  inv: self.fechaDeCreación <> null and
-       self.tipoDePenalización <> null and
-       self.multa <> null and
-       (self.pago <> null implies self.pago.fechaPago <> null)
+  
+\begin{ocl}{Cada viaje de tipo registrado tenga solicitud web /móvil}
+  context Viaje de Usuario Registrado
+  inv: self.solicitud.isKindOf(Solicitud de Viaje Web/Móvil)
 \end{ocl}
 
-\begin{ocl}{Si hay una penalización en mal estado, existe una devolución en mal estado}
-  context Penalización
-  inv: self.tipo = DevoluciónEnMalEstado implies self.usuario.devoluciones->exists(d |
-           d.enBuenEstado = false and d.fechaYHora = self.fechaCreación)
+\begin{ocl}{Cada viaje de tipo registrado el mismo usuario que su solicitud}
+  context Viaje de Usuario Registrado
+  inv: self.solicitud.isKindOf(Solicitud de Viaje Web/Móvil) implies self.solicitud.usuario == self.usuario
 \end{ocl}
 
-\begin{ocl}{Si hay una multa por devolución por otra persona, existe una devolución sin usuario o con un usuario distinto}
-  context Penalización
-  inv: self.tipo = BiciDevueltaPorOtraPersona implies
-           self.usuario.retiros->select(r | r.devolución <> null)
-                               ->exists(r | (r.devolución.usuario = null or
-                                             r.devolución.usuario != r.usuario) and
-                                            r.devolución.fechaYHora = self.fechaCreación)
+\begin{ocl}{Cada viaje de tipo no registrado tenga solicitud telefónica}
+  context Viaje de Usuario No Registrado
+  inv: self.solicitud.isKindOf(Solicitud de Viaje Telefónica)
 \end{ocl}
 
-\begin{ocl}{Si hay una multa por pasar más de una hora, existe un retiro sin devolución por más de una hora}
-  context Penalización
-  inv: self.tipo = PasoUnaHoraDesdeRetiro implies self.usuario.retiros->exists(r |
-           (r.devolución = null or (r.devolución <> null and
-                                    r.devolución.fechaYHora >= r.fechaYHora + 1h)) and
-           self.fechaCreación = r.fechaYHora + 1h)
-\end{ocl}
-
-\begin{ocl}{Para cada devolución en mal estado existe una penalización}
-  context DevoluciónDeBicicleta
-  inv: self.enBuenEstado = false implies
-           self.retiro.usuario.penalizaciones->exists(p |
-               p.fechaCreación = self.fechaYHora and
-               p.tipo = DevoluciónEnMalEstado)
-\end{ocl}
-
-\begin{ocl}{Si existe una devolución sin usuario o con un usuario distinto, hay multa por devolución de otro usuario}
-  context Devolución de Bicicleta
-  inv: (self.usuario = null or self.retiro.usuario <> self.usuario) implies
-           self.retiro.usuario.penalizaciones->exists(p |
-               p.tipo = BiciDevueltaPorOtraPersona and p.fechaCreación = self.fechaYHora)
-\end{ocl}
-
-\begin{ocl}{Si existe un retiro de bicicleta donde ya pasó más de una hora, hay una multa (automática)}
-  context RetiroDeBicicleta
-  inv: (self.devolución = null and today() >= self.fechaYHora + 1h) or
-       (self.devolución <> null and self.fechaYHora <= self.devolución.fechaYHora + 1h) implies
-           self.usuario.penalizaciones->exists(p |
-               p.fechaCreación = self.fechaYHora + 1h and
-               p.tipo = PasoUnaHoraDesdeRetiro)
-\end{ocl}
-
-\begin{ocl}{Los pagos ocurren en una fecha después de la penalización}
-  context Penalización
-  inv: self.pago <> null implies self.fechaCreación <= self.pago.fechaPago
+\begin{ocl}{Cada viaje de tipo no registrado el mismo usuario que su solicitud}
+  context Viaje de Usuario No Registrado
+  inv: self.solicitud.isKindOf(Solicitud de Viaje Telefónica) implies self.solicitud.usuario == self.usuario
 \end{ocl}
 
 
-\subsubsection{Retiros}
-
-\begin{ocl}{Todo retiro tiene una solicitud con la misma hora}
-  context RetiroDeBicicleta
-  inv: self.solicitud.fechaYHora = self.fechaYHora
+\begin{ocl}{Para todo viaje, el taxista maneja el taxi}
+  context Viaje
+  inv: self.taxista.taxi == self.taxi
 \end{ocl}
 
-\begin{ocl}{No puede existir un retiro de bicicletas si existía alguna penalización sin pagar antes del retiro}
-  context RetiroDeBicicleta
-  inv: self.usuario.penalizaciones->forAll(p |
-           (p.fechaCreación < self.fechaYHora) implies
-               (p.pago <> null and
-               p.pago.fechaPago <= self.fechaYHora))
-\end{ocl}
-
-\begin{ocl}{Un usuario no puede tener más de una bicicleta}
-  context Usuario
-  inv: self.retiros->select(r1 | r1.devolución = null)->size() <= 1
-\end{ocl}
-
-\begin{ocl}{No hay solapamientos entre los retiros (franjas de entrega y devolución que se solapen)}
-  context RetiroDeBicicleta
-  inv: RetiroDeBicicleta->allInstances()->forAll(r1, r2 |
-           (r1 <> r2 and r1.devolución <> null and r2.devolución <> null) implies
-               ((r1.fechaYHora < r2.fechaYHora implies
-                   r1.devolución.fechaYHora < r2.fechaYHora) and
-                (r1.fechaYHora > r2.fechaYHora implies
-                   r1.devolución.fechaYHora > r2.fechaYHora)))
-\end{ocl}
-
-\begin{ocl}{Los retiros tienen fecha mayor o igual a la de las devoluciones}
-  context RetiroDeBicicleta
-  inv: self.devolucion <> null implies self.fechaYHora >= self.devolución.fechaYHora
+\begin{ocl}{Toda Preferencia de Coche, el coche del viaje (si tiene viaje), es uno de los preferidos}
+  context Preferencia de Coche
+  inv: self.solicitud $\rightarrow$ forAll( x | x.viaje.isNotEmpty() implies self.taxi $\rightarrow$ include(x.viaje.taxi))
 \end{ocl}
 
 
-\subsubsection{Bicicletas}
-
-\begin{ocl}{Los IDs de las bicicletas no son nulos}
-  context Bicicleta
-  inv: self.id <> null
-\end{ocl}
-
-\begin{ocl}{No hay otra bicicleta con el mismo ID}
-  context Bicicleta
-  inv: Bicicleta.allInstances()->forAll(b1, b2 | b1 <> b2 implies b1.id <> b2.id)
-\end{ocl}
-
-\begin{ocl}{Una bicicleta no puede estar en más de dos envíos (sin fecha de llegada)}
-  context Bicicleta
-  inv: self.transportes->select(t | t.fechaYHoraLlegada = null)->size() <= 1
-\end{ocl}
-
-\begin{ocl}{Una bicicleta está en una estación, en transporte o en posesión de un usuario}
-  context Bicicleta
-  inv: -- Está en una estación
-       (self.estación <> null and not self.transportes.exists(t |
-           t.fechaYHoraLllegada = null and
-           self.retiros->size() = self.devoluciones->size())) or
-
-       -- Está en transporte
-       (self.estación = null and
-        self.transportes->exists(t | t.fechaYHoraLllegada = null) and
-        self.retiros->size() = self.devoluciones->size()) or
-
-       -- Está en posesión de un usuario
-       (self.estación = null and
-        not self.transportes->exists(t | t.fechaYHoraLllegada = null) and
-        self.retiros->size() = self.devoluciones->size() + 1)
+\begin{ocl}{Toda Preferencia de Taxista, el Taxista del viaje (si tiene viaje), es uno de los preferidos.}
+  context Preferencia de Taxista
+  inv: self.solicitud $\rightarrow$ forAll( x | x.viaje.isNotEmpty() implies self.taxista $\rightarrow$ include(x.viaje.taxista))
 \end{ocl}
 
 
-\subsubsection{Orden de transporte}
-
-\begin{ocl}{Los IDs de las ordenes de transporte nunca son null}
-  context OrdenDeTransporte
-  inv: self.id <> null
+\begin{ocl}{Toda Preferencia de Calificación del taxista, el taxista del viaje (si tiene viaje), tiene calificación mayor o igual a la elegida.}
+  context Preferencia de Calificación de Taxista
+  inv: self.solicitud $\rightarrow$ forAll( x | x.viaje.isNotEmpty() implies ....)
 \end{ocl}
-
-\begin{ocl}{Toda orden de transporte tiene un ID distinto de los otros}
-  context OrdenDeTransporte
-  inv: OrdenDeTransporte.allInstances()->forAll(o1, o2 |
-           o1 <> o2 implies o1.id <> o2.id)
-\end{ocl}
-
-\begin{ocl}{Una orden de transporte no puede tener el mismo origen que destino}
-  context OrdenDeTransporte
-  inv: self.orígen <> self.destino
-\end{ocl}
-
-
-\subsubsection{Envíos}
-
-\begin{ocl}{Los envíos tienen fecha de llegada mayor a la fecha de salida en el caso de que hayan llegado o null si no llegaron a destino}
-  context Envío
-  inv: self.fechaYHoraLLegada = null or self.fechaYHoraSalida < self.fechaYHoraLlegada
-\end{ocl}
-
-\begin{ocl}{Los envíos siempre existen con fecha de inicio}
-  context Envío
-  inv: self.fechaYHoraSalida <> null
-\end{ocl}
-
-\begin{ocl}{No hay solapamientos en envíos por cada bicicleta}
-  context Bicicleta
-  inv: self.transportes->forAll(e1, e2 |
-           (e1 <> e2 and e1.fechaYHoraLlegada <> null and e2.fechaYHoraLlegada <> null) implies
-               ((e1.fechaYHoraSalida  < e2.fechaYHoraSalida implies
-                 e1.fechaYHoraLlegada < e2.fechaYHoraSalida) and
-                (e1.fechaYHoraSalida  > e2.fechaYHoraSalida implies
-                 e1.fechaYHoraLlegada > e2.fechaYHoraSalida)))
-\end{ocl}
-
-\begin{ocl}{Debe de haber la cantidad especificada de bicicletas por la orden en el envío}
-  context Envío
-  inv: self.orden.cantBicis = self.bicicletas->size()
-\end{ocl}
-
-
-\subsubsection{Usuarios}
-
-\begin{ocl}{Ningún campo de usuarios puede ser Null}
-  context Usuario
-  inv: self.dni <> null and
-       self.nombre <> null and
-       self.email <> null and
-       self.email <> null and
-       self.clave <> null
-\end{ocl}
-
-\begin{ocl}{No existen usuarios con el mismos DNI y mail}
-  context Usuario
-  inv: Usuario.allInstances()->forAll(u1, u2 |
-           u1 <> u2 implies (u1.dni <> u2.dni and u1.email <> u2.email))
-\end{ocl}
-
-
-\subsubsection{Estaciones}
-
-\begin{ocl}{Las bicicletas reservadas concuerdan con la cantidad de bicicletas reservadas para envíos en las órdenes de transporte}
-  context Estación
-  inv: self.órdenesRetiro->select(e | e.envío = null)
-                         ->collect(e.cantBicis)
-                         ->sum() = self.cantBicisReservadas
-\end{ocl}
-
-\begin{ocl}{El stock más la cantidad de bicis reservadas es igual a la cantidad de bicicletas en la estación}
-  context Estación
-  inv: self.stock + self.cantBicisReservadas = self.bicicletas->size()
-\end{ocl}
-
-\begin{ocl}{Las estaciones no tienen el mismo nombre o dirección}
-  context Estación
-  inv: Estación.allInstances()->forAll(e1, e2 |
-           (e1 <> e2) implies (e1.nombre <> e2.nombre and e1.dirección <> e2.dirección))
-\end{ocl}
-
-\begin{ocl}{Demanda promedio en hora pico y hora no-pico}
-  context Estación
-  inv: self.estadísticas.promedioHoraPico = 
-       self.personal.solicitudes
-           ->select(fechaYHora->dia >= today()->dia - 7 and
-                    fechaYHora->hora >= 17 and
-                    fechaYHora->hora <= 20)
-           ->size() / 7
-  inv: self.estadísticas.promedioHoraNoPico = 
-       self.personal.solicitudes
-           ->select(fechaYHora->dia >= today()->dia - 7 and
-                    fechaYHora->hora < 17 or
-                    fechaYHora->hora > 20)
-           ->size() / 7
-\end{ocl}
-
-\begin{ocl}{Distribución}
-  context Estación
-  inv: self.distribución.horaNoPico =
-           Bicicleta.allInstances()->size() /
-           Estación.allInstances()->size()
-  inv: self.distribución.horaPico =
-           (if self.oclIsTypeOf(EstaciónPeriférica) then
-               self.estadísticas.promedioHoraPico * 0.25
-           else
-               self.estadísticas.promedioHoraPico
-           endif) /
-           Estación.allInstances()
-               ->collect(if oclIsTypeOf(EstaciónPeriférica) then
-                             estadísticas.promedioHoraPico * 0.25
-                         else
-                             estadísticas.promedioHoraPico
-                         endif)
-               ->sum() *
-           Bicicleta.allInstances()->size()
-\end{ocl}
+% 
+% \begin{ocl}{Distribución}
+%   context Estación
+%   inv: self.distribución.horaNoPico =
+%            Bicicleta.allInstances()->size() /
+%            Estación.allInstances()->size()
+%   inv: self.distribución.horaPico =
+%            (if self.oclIsTypeOf(EstaciónPeriférica) then
+%                self.estadísticas.promedioHoraPico * 0.25
+%            else
+%                self.estadísticas.promedioHoraPico
+%            endif) /
+%            Estación.allInstances()
+%                ->collect(if oclIsTypeOf(EstaciónPeriférica) then
+%                              estadísticas.promedioHoraPico * 0.25
+%                          else
+%                              estadísticas.promedioHoraPico
+%                          endif)
+%                ->sum() *
+%            Bicicleta.allInstances()->size()
+% \end{ocl}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
