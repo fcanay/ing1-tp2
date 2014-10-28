@@ -291,13 +291,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Registrando Nuevo Cliente}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{Un nuevo cliente completó el formulario de registración en la aplicación.}
+  \ucpost{El sistema registra un nuevo cliente.}
+  \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{La aplicación envía al sistema los datos del formulario de registro previamente completado por el usuario de la misma.}{}
+  \ucstep{El sistema verifica que los datos sean válidos.}{\ucalt{Los datos provistos no son válidos. El sistema informa a la aplicación que no se pudo completar la acción. Fin caso de uso.}}
+  \ucstep{El sistema registra el nuevo usuario en sus registros e informa a la aplicación que la acción se ha completado exitosamente.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -305,13 +306,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Informando Cancelación Del Cliente}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{Un cliente indicó a la aplicación que desea cancelar una solicitud pendiente.}
+  \ucpost{El sistema cancela la solicitud pendiente del cliente.}
+  \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{La aplicación informa que un cliente desea cancelar su solicitud, enviando los datos del mismo al sistema.}{}
+  \ucstep{El sistema verifica que los datos recibidos correspondan a un cliente existente y que el mismo tenga una solicitud pendiente.}{\ucalt{Los datos recibidos no corresponden a un cliente existente o el mismo no tiene una solicitud pendiente. El sistema descarta el mensaje. Fin caso de uso.}}
+  \ucstep{El sistema marca la solicitud como cancelada e informa a la aplicación que la acción se ha completado con éxito.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -319,13 +321,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Logueando Usuario}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{Un usuario registrado completó el formulario de Logueo en la aplicación.}
+  \ucpost{El usuario queda logueado en el sistema.}
+  \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{La aplicación envía los datos del usuario que desea loguearse.}{}
+  \ucstep{El sistema corrobora que los datos sean válidos y correspondan a un usuario registrado.}{\ucalt{Los datos son inválidos o no corresponden a un usuario registrado. El sistema informa a la aplicación que hubo un error. Fin de caso de uso.}}
+  \ucstep{El sistema loguea al usuario e informa a la aplicación que la acción se completó con éxito.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -333,15 +336,20 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Informando Pedido Digitalmente}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{Un usuario logueado completó el formulario de solicitud de viaje en la aplicación.}
+  \ucpost{El sistema registra una nueva solicitud de viaje.}
+  \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{La aplicación envía al sistema una solicitud de viaje incluyendo las direcciones de orígen y destino y las preferencias del cliente.}{}
+  \ucstep{El sistema verifica que los datos recibidos sean válidos.}{\ucalt{Los datos son inválidos. El sistema informa a la aplicación que no se pudo completar la acción. Fin caso de uso.}}
+  \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente, y envía el listado a la aplicación.}{No hay candidatos que satisfagan las preferencias del cliente. El sistema informa a la aplicación que no se precisan condiciones menos restrictivas. Ir a paso 1.}
+  \ucstep{La aplicación envía al sistema el candidato que eligió el cliente para realizar su viaje.}{}
+  \ucstep{El sistema confirma al taxista seleccionado que se ha programado el viaje mediante la aplicación del mismo.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
+\emph{Nota: este proceso se explica detalladamente en la sección \ref{sec:pedido-aplicacion} (diagrama de actividad).}
+
 
 %%%%% Informando Calificación %%%%%
 
