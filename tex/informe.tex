@@ -877,35 +877,33 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y sociacio
 
 
 \subsection{OCL}
-  
-\begin{ocl}{Cada viaje de tipo registrado tenga solicitud web /móvil}
-  context Viaje de Usuario Registrado
-  inv: self.solicitud.isKindOf(Solicitud de Viaje Web/Móvil)
-\end{ocl}
 
-\begin{ocl}{Cada viaje de tipo registrado el mismo usuario que su solicitud}
-  context Viaje de Usuario Registrado
-  inv: self.solicitud.isKindOf(Solicitud de Viaje Web/Móvil) implies
-       self.solicitud.usuario == self.usuario
-\end{ocl}
-
-\begin{ocl}{Cada viaje de tipo no registrado tenga solicitud telefónica}
-  context Viaje de Usuario No Registrado
-  inv: self.solicitud.isKindOf(Solicitud de Viaje Telefónica)
-\end{ocl}
-
-\begin{ocl}{Cada viaje de tipo no registrado el mismo usuario que su solicitud}
-  context Viaje de Usuario No Registrado
-  inv: self.solicitud.isKindOf(Solicitud de Viaje Telefónica) implies 
-       self.solicitud.usuario == self.usuario
-\end{ocl}
-
-
-\begin{ocl}{Para todo viaje, el taxista maneja el taxi}
+\begin{ocl}{Para todo viaje, el taxista maneja o manejó el taxi}
   context Viaje
-  inv: self.taxista.taxi == self.taxi
+  inv: (self.taxista.esta manejando == self.taxi) or (self.taxista.manejó -> includes(self.taxi)) 
 \end{ocl}
 
+\begin{ocl}{Para toda solicitud, si está en estado "esperando asignación``, no tiene viaje asignado}
+  context Solicitud de Viaje
+  inv: (self.estado == esperando asignación) implies (self.viaje.isEmpty()) 
+\end{ocl}
+
+\begin{ocl}{Para toda solicitud, si está en estado "en viaje" o "finalizada", tiene viaje asignado}
+  context Solicitud de Viaje
+  inv: (self.estado == en viaje or self.estado == finalizada) implies (self.viaje.isNotEmpty()) 
+\end{ocl}
+
+\begin{ocl}{Un taxi esta "en cochera" si y solo si, nadie lo esta manejando}
+  context Taxi
+  inv: (self.estado == en cochera) implies (self.manejado por.isEmpty()) and (self.manejado por.isEmpty()) implies (self.estado == en cochera) 
+\end{ocl}
+ 
+\begin{ocl}{Todo viaje que tiene una calificación, su Solicitud es de tipo Web/Movil}
+  context Viaje
+  inv: (self.calificación.isNotEmpty) implies (self.solicitud.isKindOf(Solicitud de Viaje Web/Movil)) 
+\end{ocl}
+ 
+ 
 \begin{ocl}{Toda Preferencia de Coche, el coche del viaje (si tiene viaje), es uno de los preferidos}
   context Preferencia de Coche
   inv: self.solicitudes -> forAll( x | x.viaje.isNotEmpty() implies 
@@ -923,10 +921,10 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y sociacio
 \begin{ocl}{Toda Preferencia de Calificación del taxista, el taxista del viaje (si tiene viaje), tiene calificación mayor o igual a la elegida.}
   context Preferencia de Calificación de Taxista
   inv: self.solicitudes -> forAll( s | s.viaje.isNotEmpty() implies 
-       s.viaje.taxista.viajes -> select(v.calificación | v.isKindOf(Viaje de Usuario Registrado) 
-       and v.calificación.isNotEmpty()) -> collect(c | c.puntaje) -> mean() >= self.calificación )
+       s.viaje.taxista.viajes -> select(v.calificación | v.calificación.isNotEmpty()) -> collect(c | c.puntaje) -> mean() >= self.calificación )
 \end{ocl}
 
+%TODO explicar MEAN 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Diagramas de actividad                                                    %%
