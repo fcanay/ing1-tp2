@@ -362,12 +362,13 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 \begin{usecase}
   \ucname{Informando Posición}
   \ucpre{El taxista asociado al GPS está en el taxi}
-  \ucpost{El GPS informa acerca de la posición del taxista}
+  \ucpost{El sistema está informad acerca de la posición dada por el GPS}
   \ucactor{GPS}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El GPS informa los datos del taxista al sistema.}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 4.}}
+  \ucstep{El sistema guarda los nuevos datos, enviados por el GPS.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
