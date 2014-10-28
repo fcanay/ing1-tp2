@@ -362,12 +362,13 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 \begin{usecase}
   \ucname{Informando Posición}
   \ucpre{El taxista asociado al GPS está en el taxi}
-  \ucpost{El GPS informa acerca de la posición del taxista}
+  \ucpost{El sistema está informad acerca de la posición dada por el GPS}
   \ucactor{GPS}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El GPS informa los datos del taxista al sistema.}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 4.}}
+  \ucstep{El sistema guarda los nuevos datos, enviados por el GPS.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -405,13 +406,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Modificando Estado}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{El viaje existe, y el viaje asociado a la solicitud comenzó y no terminó}
+  \ucpost{El sistema reconoce la modificacón de estado}
+  \ucactor{Operador telefónico/radial}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El Operador informa acerca de la modificacón de estado al sistema (ejemplo: se le pinchó la goma al auto)}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
+  \ucstep{El sistema hace lo que puede para que el viaje pueda terminar (ejemplo: mandar otro taxi).}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -419,13 +421,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Consultando Indicadores}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{True}
+  \ucpost{El sistema le muestra los indicadores al directivo}
+  \ucactor{Directivos}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El directivo se autentica.}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos. Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El sistema muestra los indicadores.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
