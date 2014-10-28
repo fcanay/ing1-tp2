@@ -361,13 +361,13 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Informando Posición}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{El taxista asociado al GPS está en el taxi}
+  \ucpost{El GPS informa acerca de la posición del taxista}
+  \ucactor{GPS}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El GPS informa los datos del taxista al sistema.}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -375,13 +375,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Informando Pedido Telefónico}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{La solicitud a informar existe}
+  \ucpost{La solicitud de viaje está creada}
+  \ucactor{Operador telefónico/radial}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El Operador informa los datos de la solicitud al sistema}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
+  \ucstep{El sistema crea la solicitud de viaje.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -389,13 +390,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Informando Cancelación}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{La solicitud a cancelar existe, y el viaje asociado a la solicitud no comenzó}
+  \ucpost{La solicitud está cancelada}
+  \ucactor{Operador telefónico/radial}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El Operador informa los datos de la cancelación de solicitud al sistema}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
+  \ucstep{El sistema cancela la solicitud de viaje.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
