@@ -880,27 +880,32 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y sociacio
 
 \begin{ocl}{Para todo viaje, el taxista maneja o manejó el taxi}
   context Viaje
-  inv: (self.taxista.esta manejando == self.taxi) or (self.taxista.manejó -> includes(self.taxi)) 
+  inv: (self.taxista.esta manejando == self.taxi) or
+       (self.taxista.manejó -> includes(self.taxi)) 
 \end{ocl}
 
 \begin{ocl}{Para toda solicitud, si está en estado "esperando asignación``, no tiene viaje asignado}
   context Solicitud de Viaje
-  inv: (self.estado == esperando asignación) implies (self.viaje.isEmpty()) 
+  inv: (self.estado == esperando asignación) implies
+       (self.viaje.isEmpty()) 
 \end{ocl}
 
 \begin{ocl}{Para toda solicitud, si está en estado "en viaje" o "finalizada", tiene viaje asignado}
   context Solicitud de Viaje
-  inv: (self.estado == en viaje or self.estado == finalizada) implies (self.viaje.isNotEmpty()) 
+  inv: (self.estado == en viaje or self.estado == finalizada) implies
+       (self.viaje.isNotEmpty()) 
 \end{ocl}
 
 \begin{ocl}{Un taxi esta "en cochera" si y solo si, nadie lo esta manejando}
   context Taxi
-  inv: (self.estado == en cochera) implies (self.manejado por.isEmpty()) and (self.manejado por.isEmpty()) implies (self.estado == en cochera) 
+  inv: ((self.estado == en cochera) implies (self.manejado por.isEmpty())) and
+       ((self.manejado por.isEmpty()) implies (self.estado == en cochera))
 \end{ocl}
  
 \begin{ocl}{Todo viaje que tiene una calificación, su Solicitud es de tipo Web/Movil}
   context Viaje
-  inv: (self.calificación.isNotEmpty) implies (self.solicitud.isKindOf(Solicitud de Viaje Web/Movil)) 
+  inv: (self.calificación.isNotEmpty) implies
+       (self.solicitud.isKindOf(Solicitud de Viaje Web/Movil)) 
 \end{ocl}
  
  
@@ -921,10 +926,11 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y sociacio
 \begin{ocl}{Toda Preferencia de Calificación del taxista, el taxista del viaje (si tiene viaje), tiene calificación mayor o igual a la elegida.}
   context Preferencia de Calificación de Taxista
   inv: self.solicitudes -> forAll( s | s.viaje.isNotEmpty() implies 
-       s.viaje.taxista.viajes -> select(v.calificación | v.calificación.isNotEmpty()) -> collect(c | c.puntaje) -> mean() >= self.calificación )
+       (s.viaje.taxista.viajes -> select(v.calificación | v.calificación.isNotEmpty()) ->
+       collect(c | c.puntaje) -> mean() >= self.calificación) )
 \end{ocl}
 
-%TODO explicar MEAN 
+\emph{Aclaración:} con mean() nos referimos al promedio de un conjunto de números. Si el conjunto es vacío devuelve 0.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Diagramas de actividad                                                    %%
