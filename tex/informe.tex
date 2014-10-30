@@ -1013,7 +1013,11 @@ En los siguientes FSM, buscamos modelar la siguiente situaci\'on:
 
 Para mayor entendimiento del diagrama queremos comentar que cada $Cliente_i$ se sincroniza con su correspondiente $Sistema_i$ y con ning\'un otro $Cliente$ o $Sistema$, idem para $Sistema_i$. Esto se puede ver ya que todas las transiciones en ambos siempre dependen de i.
 
-Por otro lado agregamos en la transici\'on \emph{Preg Viaje}, la condici\'on "cumple preferencias", dej\'andola fuera del modelo. Optamos por esto ya que la forma de agregar esta condici\'on era que la transici\'on de $Cliente_i$ $EnviarPref_i$ fuera no determin\'istica y cada transici\'on llenara un arreglo de \emph{bool} de longitud M (un casillero por taxista), donde \emph{True} significase que el taxista cumple las preferencias y \emph{False} lo contrario.
+Tambi\'en vemos que todo $Taxista_j$ se puede sincronizar con cualquier $Sistema_i$, pero con cada $Sistema_i$ se sincroniza por una transici\'on diferente ya que dos $Sistema$ no se sincronizan entre ellos.
+
+Por ultimo resaltamos que no hay ninguna sincronizaci\'on directa entre $Cliente_i$ y $Taxista_j$ (lo cual es esperable), ya que no comparten ninguna transici\'on, todas las sincronizaciones entre ambos son a través del $Sistema$.
+
+Por otro lado queremos comentar porque agregamos en la transici\'on \emph{Preg Viaje}, la condici\'on "cumple preferencias", que queda por fuera del modelo. Optamos por esto ya que la forma de agregar esta condici\'on ser\'ia que la transici\'on de $Cliente_i$ $EnviarPref_i$ fuera no determin\'istica y cada transici\'on llenara un arreglo de \emph{bool} de longitud M (un casillero por taxista), donde \emph{True} significase que el taxista cumple las preferencias y \emph{False} lo contrario. (Por lo menos fue la forma que se nos ocurri\'o a nosotros) %TODO les parece bien poner este ultimo comentario o no.
 
 Creemos que esta soluci\'on solo entorpece la claridad del diagrama sin aportar nada, por lo que decidimos dejar la condici\'on fuera del modelo.
 
