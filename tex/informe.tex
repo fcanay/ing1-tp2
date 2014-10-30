@@ -977,6 +977,22 @@ Las m\'aquinas $Sistema_i$ representa una porci\'on del sistema encargada de ate
 
 Y por ultimo $Taxista_j$ representa a uno de los taxistas de la flota.
 
+\subsection{Modelamos}
+
+En los siguientes FSM, buscamos modelar la siguiente situaci\'on:
+\begin{itemize}
+ \item Un cliente registrado realiza v\'ia Web\\M\'ovil una solicitud de viaje, brindando sus preferencias.
+ \item El sistema le pregunta a los taxistas que cumplen la preferencia del pasajero y no est\'an bloqueados con otro viaje.
+ \item Cada taxista tiene 60 segundos para contestar la propuesta, sino se supone rechazada. (Este tiempo puede ser configurable por la empresa)
+ \item Los taxistas reciben de a una solicitud por vez.
+ \item Cuando aceptan una solicitud no reciben m\'as solicitudes hasta que se resuelva ese pedido.
+ \item Si pasan 1200 segundo sin que ning\'un taxista acepte, se le manda al cliente un aviso que sus preferencias no pueden ser cumplidas.(Este tiempo tambi\'en puede ser configurado por la empresa)
+ \item Si 10 taxistas confirman, o se acaba el tiempo con aunque sea un taxista confirmado, el sistema env\'ia al cliente los taxistas que aceptaron.
+ \item El cliente elije uno, y los dem\'as dejan de estar bloqueados, pudiendo recibir nuevas solicitudes.
+ \item El sistema confirma el viaje al taxista y esta parte a buscar al cliente.
+ \item Cuando termina el viaje el taxista vuelve a estar disponible para recibir nuevas solicitudes.
+\end{itemize}
+
 
 \subsection{$Cliente_i$}
 \label{sec:fsm-usuario}
@@ -992,6 +1008,14 @@ Y por ultimo $Taxista_j$ representa a uno de los taxistas de la flota.
 \label{sec:fsm-taxi}
 
 \diagramav{fsm-taxi}
+
+\subsection{Aclaraciones}
+
+Para mayor entendimiento del diagrama queremos comentar que cada $Cliente_i$ se sincroniza con su correspondiente $Sistema_i$ y con ning\'un otro $Cliente$ o $Sistema$, idem para $Sistema_i$. Esto se puede ver ya que todas las transiciones en ambos siempre dependen de i.
+
+Por otro lado agregamos en la transici\'on \emph{Preg Viaje}, la condici\'on "cumple preferencias", dej\'andola fuera del modelo. Optamos por esto ya que la forma de agregar esta condici\'on era que la transici\'on de $Cliente_i$ $EnviarPref_i$ fuera no determin\'istica y cada transici\'on llenara un arreglo de \emph{bool} de longitud M (un casillero por taxista), donde \emph{True} significase que el taxista cumple las preferencias y \emph{False} lo contrario.
+
+Creemos que esta soluci\'on solo entorpece la claridad del diagrama sin aportar nada, por lo que decidimos dejar la condici\'on fuera del modelo.
 
 
 % \subsection{Entrega de bicicleta}
