@@ -291,7 +291,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Registrando Nuevo Cliente}
-  \ucpre{Un nuevo cliente completó el formulario de registración en la aplicación.}
+  \ucpre{Un nuevo cliente completó el formulario de registro en la aplicación.}
   \ucpost{El sistema registra un nuevo cliente.}
   \ucactor{Aplicación}
 \end{usecase}
@@ -305,8 +305,8 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 %%%%% Informando Cancelación Del Cliente %%%%%
 
 \begin{usecase}
-  \ucname{Informando Cancelación Del Cliente}
-  \ucpre{Un cliente indicó a la aplicación que desea cancelar una solicitud pendiente.}
+  \ucname{Informando Cancelación Del Cliente} %TODO lo habria q decirle a la aplicacion q avise al taxista?
+  \ucpre{Un cliente ya logueado indicó a la aplicación que desea cancelar una solicitud pendiente.} %TODO agregue q el cliente este loguado, esta bien ponerlo asi? es necesario ponerlo_
   \ucpost{El sistema cancela la solicitud pendiente del cliente.}
   \ucactor{Aplicación}
 \end{usecase}
@@ -343,7 +343,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 \begin{usecasesteps}
   \ucstep{La aplicación envía al sistema una solicitud de viaje incluyendo las direcciones de orígen y destino y las preferencias del cliente.}{}
   \ucstep{El sistema verifica que los datos recibidos sean válidos.}{\ucalt{Los datos son inválidos. El sistema informa a la aplicación que no se pudo completar la acción. Fin caso de uso.}}
-  \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente, y envía el listado a la aplicación.}{No hay candidatos que satisfagan las preferencias del cliente. El sistema informa a la aplicación que no se precisan condiciones menos restrictivas. Ir a paso 1.}
+  \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente, y envía el listado a la aplicación.}{No hay candidatos que satisfagan las preferencias del cliente. El sistema informa a la aplicación que no se precisan condiciones menos restrictivas. Ir a paso 1.} %TODO faltaria describir mejor este proceso, el sistema le pide a la aplicacion q le avise a los taxistas, la aplicacion le da al sistema la respuesta de los taxistas (q pasa los taxista q se comunican por radio), y ahi se lo manda al cliente (via aplicacion).
   \ucstep{La aplicación envía al sistema el candidato que eligió el cliente para realizar su viaje.}{}
   \ucstep{El sistema confirma al taxista seleccionado que se ha programado el viaje mediante la aplicación del mismo.}{}
   \ucstep{Fin caso de uso.}{}
@@ -353,7 +353,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 %%%%% Informando Calificación %%%%%
 
-\begin{usecase}
+\begin{usecase} %TODO Sacar Lorem Ipsum
   \ucname{Informando Calificación}
   \ucpre{}
   \ucpost{}
@@ -369,13 +369,13 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \begin{usecase}
   \ucname{Informando Posición}
-  \ucpre{El taxista asociado al GPS está en el taxi}
-  \ucpost{El sistema está informad acerca de la posición dada por el GPS}
+  \ucpre{El taxista asociado al GPS está en el taxi} %TODO no entiendo q significa
+  \ucpost{El sistema está informado acerca de la posición dada por el GPS}
   \ucactor{GPS}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El GPS informa los datos del taxista al sistema.}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 4.}}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 4.}} %TODO en algunos casos ponemos FIn caso de uso y otros ir a 4 (a es el fin). Si ponemos ir a 4 no estamos diciendo q temrina en curso normal?
   \ucstep{El sistema guarda los nuevos datos, enviados por el GPS.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
@@ -383,7 +383,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 %%%%% Informando Pedido Telefónico %%%%%
 
 \begin{usecase}
-  \ucname{Informando Pedido Telefónico}
+  \ucname{Informando Pedido Telefónico} %TODO cambiaria el nombre, es poco descriptivo, pondria algo asi como Creando solicitud telefonica
   \ucpre{La solicitud a informar existe}
   \ucpost{La solicitud de viaje está creada}
   \ucactor{Operador telefónico/radial}
@@ -391,14 +391,14 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 \begin{usecasesteps}
   \ucstep{El Operador informa los datos de la solicitud al sistema}{}
   \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
-  \ucstep{El sistema crea la solicitud de viaje.}{}
+  \ucstep{El sistema crea la solicitud de viaje.}{} %TODO habria que describir mas el proceso de asignar taxista
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%%% Informando Cancelación %%%%%
 
 \begin{usecase}
-  \ucname{Informando Cancelación}
+  \ucname{Informando Cancelación} %TODO no puede ser via App ?
   \ucpre{La solicitud a cancelar existe, y el viaje asociado a la solicitud no comenzó}
   \ucpost{La solicitud está cancelada}
   \ucactor{Operador telefónico/radial}
@@ -413,7 +413,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 %%%%% Modificando Estado %%%%%
 
 \begin{usecase}
-  \ucname{Modificando Estado}
+  \ucname{Modificando Estado} %TODO poco descriptivo, habria q aclarar q es de parte del taxista
   \ucpre{El viaje existe, y el viaje asociado a la solicitud comenzó y no terminó}
   \ucpost{El sistema reconoce la modificacón de estado}
   \ucactor{Operador telefónico/radial}
@@ -436,7 +436,7 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 \begin{usecasesteps}
   \ucstep{El directivo se autentica.}{}
   \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos. Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
-  \ucstep{El sistema muestra los indicadores.}{}
+  \ucstep{El sistema muestra los indicadores.}{} %TODO tenemos q explicar como se arman los indicadores?
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -846,34 +846,28 @@ A continuación listaremos algunos cambios realizados a la solución propuesta c
 
 \diagramah{conceptual}
 
-A continuación realizaremos aclaraciones sobre algunas de las clases y sociaciones presentadas previamente:
+A continuación realizaremos aclaraciones sobre algunas de las clases y asociaciones presentadas previamente:
 
 \begin{description} %TODO Actualizar esto con el nuevo diagrama!!!
   \item[Usuario Registrado:] Cualquier persona que se haya registrado previamente en el sistema. Registrando un nombre de usuario y una contraseña.
 
-  \item[Usuario No Registrado:] Cualquier persona que se comunique vía telefónica, sin importar si tiene un usuario registrado en el sistemao no.
+  \item[Usuario No Registrado:] Cualquier persona que se comunique vía telefónica, sin importar si tiene un usuario registrado en el sistema o no.
 
   \item[Taxista:] Un empleado de la empresa que maneja taxis.
 
-  \item[Taxi:] Un automovil de la empresa que cumple con todas las regulaciones para poder usado como taxi.
+  \item[Taxi:] Un automóvil de la empresa que cumple con todas las regulaciones para poder usado como taxi.
 
   \item[Solicitud De Viaje:] Un pedido de un cliente para realizar un viaje entre dos direcciones.
 
-  \item[Solicitud De Viaje Web/movil:] Es un caso particular de una Solicitud de Viaje, realizada a traves de las plataformas móvil o web y con un conjunto de preferencias.
+  \item[Solicitud De Viaje Web/móvil:] Es un caso particular de una Solicitud de Viaje, realizada a través de las plataformas móvil o web y con un conjunto de preferencias.
 
   \item[Solicitud De Viaje Telefónica:] Es un caso particular de una Solicitud de Viaje, realizada por teléfono.
 
-  \item[Viaje:] Es la realización de una solicitud, asignandole un taxista y un taxi para la concre .
-
-  \item[Viaje De Usuario Registrado:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
-
-  \item[Viaje De Usuario No Registrado:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
+  \item[Viaje:] Es la realización de una solicitud, asignándole un taxista y un taxi para la concreción.
 
   \item[Calificación:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
 
   \item[Preferencia:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
-
-  \item[Preferencia De Tiempo:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
 
   \item[Preferencia De Coche:] Ut vitae libero ultricies, molestie sapien et, vulputate ante. Morbi ut ipsum auctor, accumsan mauris ac, semper justo. Morbi turpis turpis, porta sit amet quam vel, ullamcorper accumsan lorem. Ut imperdiet ex nec nisi scelerisque sodales ac at ligula.
 
@@ -892,19 +886,19 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y sociacio
        (self.taxista.manejó -> includes(self.taxi)) 
 \end{ocl}
 
-\begin{ocl}{Para toda solicitud, si está en estado "esperando asignación``, no tiene viaje asignado}
+\begin{ocl}{Para toda solicitud, si está en estado ``esperando asignación'', no tiene viaje asignado}
   context Solicitud de Viaje
   inv: (self.estado == esperando asignación) implies
        (self.viaje.isEmpty()) 
 \end{ocl}
 
-\begin{ocl}{Para toda solicitud, si está en estado "en viaje" o "finalizada", tiene viaje asignado}
+\begin{ocl}{Para toda solicitud, si está en estado ''en viaje`` o ''finalizada``, tiene viaje asignado}
   context Solicitud de Viaje
   inv: (self.estado == en viaje or self.estado == finalizada) implies
        (self.viaje.isNotEmpty()) 
 \end{ocl}
 
-\begin{ocl}{Un taxi esta "en cochera" si y solo si, nadie lo esta manejando}
+\begin{ocl}{Un taxi esta ''en cochera`` si y solo si, nadie lo esta manejando}
   context Taxi
   inv: ((self.estado == en cochera) implies (self.manejado por.isEmpty())) and
        ((self.manejado por.isEmpty()) implies (self.estado == en cochera))
