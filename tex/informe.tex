@@ -863,7 +863,7 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
   \item[Solicitud De Viaje Telefónica:] Es un caso particular de una Solicitud de Viaje, realizada por teléfono.
 
-  \item[Solicitud De Viaje Periodica:] Es una solicitud de viaje que se realiza entre las mismas direcciones origen y destino de manera periodica. %TODO medio chota esta descripcion, si quieren mejorenla
+  \item[Solicitud De Viaje Periódica:] Es una solicitud de viaje que se realiza entre las mismas direcciones origen y destino de manera periódica. %TODO medio chota esta descripcion, si quieren mejorenla
   
   \item[Viaje:] Es la realización de una solicitud, asignándole un taxista y un taxi para la concreción.
   
@@ -875,7 +875,7 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
   \item[Preferencia:] Son determinados factores que un usuario puede pedir que se cumplan en su viaje.
 
-  \item[Preferencia De Coche:] Es un caso particular de Preferencia. En este caso, son sobre el taxi en el que el usuario tendrá su viaje.
+  \item[Preferencia De Coche:] Es un caso particular de Preferencia. En este caso, se refiere a que el usuario puede pedir viajar en algún modelo de coche particular.
 
   \item[Preferencia De Taxista:] Es un caso particular de Preferencia. Se refiere a que el usuario puede pedir viajar con un taxista particular y no con otro.
 
@@ -904,34 +904,34 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
        (self.viaje.isNotEmpty()) 
 \end{ocl}
 
-\begin{ocl}{Un taxi esta ''en cochera`` si y solo si, nadie lo esta manejando}
+\begin{ocl}{Un taxi esta ''en cochera`` si y sólo si, nadie lo esta manejando}
   context Taxi
   inv: ((self.estado == en cochera) implies (self.manejado por.isEmpty())) and
        ((self.manejado por.isEmpty()) implies (self.estado == en cochera))
 \end{ocl}
  
-\begin{ocl}{Todo viaje que tiene una calificación, su Solicitud es de tipo Web/Movil}
+\begin{ocl}{Si un viaje tiene una calificación, su Solicitud es de tipo Web/Movil}
   context Viaje
-  inv: (self.calificación.isNotEmpty) implies
+  inv: (self.calificación.isNotEmpty()) implies
        (self.solicitud.isKindOf(Solicitud de Viaje Web/Movil)) 
 \end{ocl}
  
  
-\begin{ocl}{Toda Preferencia de Coche, el coche del viaje (si tiene viaje), es uno de los preferidos}
+\begin{ocl}{Para toda Preferencia de Coche, si tiene un viaje asociado, entonces el coche del viaje es uno de los preferidos}
   context Preferencia de Coche
   inv: self.solicitudes -> forAll( x | x.viaje.isNotEmpty() implies 
        self.taxis -> include(x.viaje.taxi))
 \end{ocl}
 
 
-\begin{ocl}{Toda Preferencia de Taxista, el Taxista del viaje (si tiene viaje), es uno de los preferidos.}
+\begin{ocl}{Para toda Preferencia de Taxista, si tiene un viaje asociado, entonces el taxista del viaje es uno de los preferidos}
   context Preferencia de Taxista
   inv: self.solicitudes -> forAll( x | x.viaje.isNotEmpty() implies 
        self.taxistas -> include(x.viaje.taxista))
 \end{ocl}
 
 
-\begin{ocl}{Toda Preferencia de Calificación del taxista, el taxista del viaje (si tiene viaje), tiene calificación mayor o igual a la elegida.}
+\begin{ocl}{Para toda Preferencia de Calificación del taxista, si tiene un viaje asociado, entonces el taxista del viaje tiene calificación mayor o igual a la elegida.}
   context Preferencia de Calificación de Taxista
   inv: self.solicitudes -> forAll( s | s.viaje.isNotEmpty() implies 
        (s.viaje.taxista.viajes -> select(v.calificación | v.calificación.isNotEmpty()) ->
