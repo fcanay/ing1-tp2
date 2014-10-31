@@ -977,6 +977,16 @@ Las m\'aquinas $Sistema_i$ representa una porci\'on del sistema encargada de ate
 
 Y por ultimo $Taxista_j$ representa a uno de los taxistas de la flota.
 
+En las FSMs vamos a utilizar la siguiente nomenclatura:
+
+\begin{itemize}
+	\item Usamos $\&$ para referirnos al \emph{and} lógico
+	\item Usamos $||$ para referirnos al \emph{or} lógico
+	\item Usamos $x\ in\ a$ para ver si el elemento $x$ pertenece al array $a$.Como el tamaño de $a$ es finito, $x\ in\ a$ se desglosa en $x\ ==\ a[0]\ ||\ ... \ x\ ==\ a[tam]$, siendo $tam$ el tamaño de $a$. Por lo que termina siendo finito.
+	\item Usamos $Sacar\ x\ de\ a$ para referirnos a sacar al elemento $x$ del array $a$. Esto implica recorrer el array $a$ (el cual tiene tamaño finito) y por cada $a[i]\ ==\ x$, setear $a[i]\ ==\ 0$. Como las IDs de los taxistas son mayores o iguales que 1, efectivamente borramos dicho elemento del array.
+
+\end{itemize}
+
 \subsection{Modelamos}
 
 En los siguientes FSM, buscamos modelar la siguiente situaci\'on:
