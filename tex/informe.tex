@@ -863,21 +863,17 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
   \item[Solicitud De Viaje Telefónica:] Es un caso particular de una Solicitud de Viaje, realizada por teléfono.
 
-  \item[Solicitud De Viaje Periódica:] Es una solicitud de viaje que se realiza entre las mismas direcciones origen y destino de manera periódica. %TODO medio chota esta descripcion, si quieren mejorenla
+  \item[Solicitud De Viaje Periódica:] Es el pedido de un cliente para generar automáticamente una solicitud de viaje, entre cierta direcci\'on de origen y destino, de manera periódica. 
   
   \item[Viaje:] Es la realización de una solicitud, asignándole un taxista y un taxi para la concreción.
-  
-  \item[Viaje de usuario registrado:] Es un caso particular de Viaje, en el que el usuario correspondiente al mismo es un usuario registrado.
-
-  \item[Viaje de usuario no registrado:] Es un caso particular de Viaje, en el que el usuario correspondiente al mismo es un usuario no registrado.
   
   \item[Calificación:] Es un puntaje que un usuario registrado puede hacerle al taxista luego de haber viajado con el mismo. Además de puntuarlo, el usuario puede dejar una \emph{review}.
 
   \item[Preferencia:] Son determinados factores que un usuario puede pedir que se cumplan en su viaje.
 
-  \item[Preferencia De Coche:] Es un caso particular de Preferencia. En este caso, se refiere a que el usuario puede pedir viajar en algún modelo de coche particular.
+  \item[Preferencia De Coche:] Es un caso particular de Preferencia. En este caso, se refiere a que el usuario puede pedir viajar en algún (o varios) modelo de coche particular.
 
-  \item[Preferencia De Taxista:] Es un caso particular de Preferencia. Se refiere a que el usuario puede pedir viajar con un taxista particular y no con otro.
+  \item[Preferencia De Taxista:] Es un caso particular de Preferencia. Se refiere a que el usuario puede pedir viajar con uno o varios taxistas en particular .
 
   \item[Preferencia De Calificación De Taxista:] Es un caso particular de Preferencia. Hace referencia a la calificación que tenga el taxista por parte de los usuarios. El usuario puede pedir que la calificación del taxista con el que viaje sea superior a un puntaje determinado.
 
@@ -975,11 +971,16 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \diagramav{da-calificar-taxista}
 
+\subsection{Realizar pedido}
+\label{sec:da-pedido-alto-nivel}
 
-\subsection{Realizar pedido vía Aplicación}
-\label{sec:pedido-aplicacion}
+\diagramav{da-pedido-alto-nivel}
 
-\diagramav{da-realizar-pedido-aplicacion}
+
+\subsection{Pedir taxi vía M\'ovil}
+\label{sec:pedido-aplicacion-movil}
+
+\diagramav{da-realizar-pedido-aplicacion-movil}
 
 
 \section{FSM}
