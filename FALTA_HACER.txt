@@ -5,5 +5,4 @@ Falta hacer (por orden de prioridad subjetivo):
 2.1-no olvidarse q en la descripcion tienen que estar los include y extend
 3- mejorar el diagrama de casos de uso, agregar cosas q falten, poner nombres mas claros
 4- Ver y resolver todos los TODO del .tex
-5- DA pedido Movil y pedido web. Cuando le preguntamos al taxista si confirma el viaje no pasa por la app movil
-6- DA pedido telefonico, no consideramos la opcion q ningun taxista te diga q si.
+
