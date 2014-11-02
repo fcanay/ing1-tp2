@@ -713,7 +713,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Modificando Estado a disponible}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{El sistema marca al taxista como disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
@@ -727,7 +727,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 % 
 \begin{usecase}
   \ucname{Modificando Estado a no Disponible}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{El sistema marca al taxista como no disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
@@ -1306,6 +1306,11 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 \label{sec:pedido-aplicacion-telefonica}
 
 \diagramav{da-realizar-pedido-aplicacion-telefonica}
+
+\subsection{Manejo de imprevisto del taxista}
+\label{sec:¡mprevisto-taxista}
+
+\diagramav{da-imprevisto}
 
 
 \section{FSM}
