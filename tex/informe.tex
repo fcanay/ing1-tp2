@@ -391,8 +391,47 @@ A continuación, vamos a enumerar y explicar algunos fenómenos que creemos que 
 
 \section{Modelo de objetivos}
 
-%TODO agregar el diagrama en si
+Debido a la gran extensión del diagrama de objetivos, incluimos el mismo dividido en 4 partes. Las primeras dos partes muestran en detalle el desglose del objetivo de incrementar ingresos, mediante el aumento de la cantidad de pasajeros (parte 1), y el aumento del tamaño de la flota (parte 2). La tercera parte pone en detalle el objetivo de reducción de costos, y por último la cuarta parte refiere al objetivo de mantener estadísticas e indicadores del funcionamiento de la empresa.
 
+En la sección subsiguiente a las figuras, describimos en mayor detalle los objetivos mencionados y aquellos de mayor relevancia.
+
+\subsection{Diagrama completo}
+
+Para facilitar la navegación entre las cuatro partes, agregamos un mapa del diagrama completo señalando el alcance de cada una de las partes a continuación.
+
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{diagramas/diagrama-objetivos-4.png}
+  \caption{Diagrama de Objetivos, Completo}
+  \label{fig:diagrama-objetivos-completo}
+\end{figure}
+
+\subsection{Diagrama: Parte 1}
+\begin{figure}[H]
+  \includegraphics[angle=90,height=20cm]{diagramas/diagrama-objetivos-0.png}
+  \caption{Diagrama de Objetivos, Parte 1}
+  \label{fig:diagrama-objetivos-0}
+\end{figure}
+\newpage
+\subsection{Diagrama: Parte 2}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{diagramas/diagrama-objetivos-1.png}
+  \caption{Diagrama de Objetivos, Parte 2}
+  \label{fig:diagrama-objetivos-1}
+\end{figure}
+\newpage
+\subsection{Diagrama: Parte 3}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{diagramas/diagrama-objetivos-2.png}
+  \caption{Diagrama de Objetivos, Parte 3}
+  \label{fig:diagrama-objetivos-2}
+\end{figure}
+\newpage
+\subsection{Diagrama: Parte 4}
+\begin{figure}[H]
+  \includegraphics[width=\textwidth]{diagramas/diagrama-objetivos-3.png}
+  \caption{Diagrama de Objetivos, Parte 4}
+  \label{fig:diagrama-objetivos-3}
+\end{figure}
 \newpage
 
 \subsection{Objetivos de alto nivel}
@@ -671,48 +710,34 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 %%%%% Modificando Estado %%%%%
 
+
 \begin{usecase}
-  \ucname{Modificando Estado} %TODO poco descriptivo, habria q aclarar q es de parte del taxista
-  \ucpre{El viaje existe, y el viaje asociado a la solicitud comenzó y no terminó}
-  \ucpost{El sistema reconoce la modificacón de estado}
+  \ucname{Modificando Estado a disponible}
+  \ucpre{True}
+  \ucpost{El sistema marca al taxista como disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{El Operador informa acerca de la modificacón de estado al sistema (ejemplo: se le pinchó la goma al auto)}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos, ir a paso 1.}}
-  \ucstep{El sistema hace lo que puede para que el viaje pueda terminar (ejemplo: mandar otro taxi).}{}
+  \ucstep{El Operador informa acerca de la modificacón de estado al sistema}{}
+  \ucstep{El sistema verifica que el taxista estuviese marcado como no disponible.}{\ucalt{Si el sistema no estaba marcado como no disponible descarta el mensaje. Fin caso de uso}}
+  \ucstep{El sistema marca al taxista como disponible}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
-
-% % % 
-% 
-% \begin{usecase}
-%   \ucname{Modificando Estado a Disponible}
-%   \ucpre{}
-%   \ucpost{El sistema reconoce la modificacón de estado}
-%   \ucactor{Operador telefónico/radial}
-% \end{usecase}
-% \begin{usecasesteps}
-%   \ucstep{El Operador informa acerca de la modificacón de estado al sistema}{}
-%   \ucstep{El sistema verifica que el taxista estuviese marcado como no disponible.}{\ucalt{Si el sistema no estaba marcado como no disponible descarta el mensaje. Fin caso de uso}}
-%   \ucstep{El sistema marca al taxista como disponible}{}
-%   \ucstep{Fin caso de uso.}{}
-% \end{usecasesteps}
 % 
 % 
-% \begin{usecase}
-%   \ucname{Modificando Estado a no Disponible}
-%   \ucpre{}
-%   \ucpost{El sistema reconoce la modificacón de estado}
-%   \ucactor{Operador telefónico/radial}
-% \end{usecase}
-% \begin{usecasesteps}
-%   \ucstep{El Operador informa acerca de la modificacón de estado al sistema}{}
-%   \ucstep{El sistema verifica que el taxista estuviese marcado como disponible.}{\ucalt{Si el sistema no estaba marcado como disponible descarta el mensaje. Fin caso de uso}}
-%   \ucstep{El sistema marca al taxista como disponible}{}
-%   \ucstep{Si el sistema tenía un viaje asignado para el taxista lo cancela.}{}
-%   \ucstep{Fin caso de uso.}{}
-% \end{usecasesteps}
+\begin{usecase}
+  \ucname{Modificando Estado a no Disponible}
+  \ucpre{True}
+  \ucpost{El sistema marca al taxista como no disponible}
+  \ucactor{Operador telefónico/radial}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El Operador informa acerca de la modificacón de estado al sistema}{}
+  \ucstep{El sistema verifica que el taxista estuviese marcado como disponible.}{\ucalt{Si el sistema no estaba marcado como disponible descarta el mensaje. Fin caso de uso}}
+  \ucstep{El sistema marca al taxista como disponible}{}
+  \ucstep{Si el sistema tenía un viaje asignado para el taxista lo cancela. Además le informa al Operador del viaje cancelado}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
 % % % 
 
 %%%%% Consultando Indicadores %%%%%
@@ -1281,6 +1306,11 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 \label{sec:pedido-aplicacion-telefonica}
 
 \diagramav{da-realizar-pedido-aplicacion-telefonica}
+
+\subsection{Manejo de imprevisto del taxista}
+\label{sec:¡mprevisto-taxista}
+
+\diagramav{da-imprevisto}
 
 
 \section{FSM}
