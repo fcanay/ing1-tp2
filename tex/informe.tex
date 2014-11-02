@@ -605,14 +605,15 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Informando Cancelación Del Cliente} %TODO lo habria q decirle a la aplicacion q avise al taxista?
-  \ucpre{Un cliente ya logueado indicó a la aplicación que desea cancelar una solicitud pendiente.} %TODO agregue q el cliente este loguado, esta bien ponerlo asi? es necesario ponerlo_
+  \ucpre{Un cliente ya logueado indicó a la aplicación que desea cancelar una solicitud pendiente.}
   \ucpost{El sistema cancela la solicitud pendiente del cliente.}
   \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{La aplicación informa que un cliente desea cancelar su solicitud, enviando los datos del mismo al sistema.}{}
   \ucstep{El sistema verifica que los datos recibidos correspondan a un cliente existente y que el mismo tenga una solicitud pendiente.}{\ucalt{Los datos recibidos no corresponden a un cliente existente o el mismo no tiene una solicitud pendiente. El sistema descarta el mensaje. Fin caso de uso.}}
-  \ucstep{El sistema marca la solicitud como cancelada e informa a la aplicación que la acción se ha completado con éxito.}{}
+  \ucstep{El sistema marca la solicitud como cancelada}{}
+  \ucstep{Incluye CU ``Enviando Cancelación de Viaje para el Taxista''}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -664,6 +665,49 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+%%%%% Informando Calificación %%%%%
+
+\begin{usecase} %TODO Sacar Lorem Ipsum
+  \ucname{Enviando Solicitud de Viaje para el Taxista}
+  \ucpre{}
+  \ucpost{}
+  \ucactor{}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
+  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+%%%%% Informando Calificación %%%%%
+
+\begin{usecase} %TODO Sacar Lorem Ipsum
+  \ucname{Enviando Cancelación de Viaje para el Taxista}
+  \ucpre{}
+  \ucpost{}
+  \ucactor{}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
+  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+%%%%% Informando Calificación %%%%%
+
+\begin{usecase} %TODO Sacar Lorem Ipsum
+  \ucname{Informando Respuesta Taxista}
+  \ucpre{}
+  \ucpost{}
+  \ucactor{}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
+  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+
 %%%%% Informando Posición %%%%%
 
 \begin{usecase}
@@ -681,7 +725,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 %%%%% Informando Pedido Telefónico %%%%%
 
 \begin{usecase}
-  \ucname{Generando Pedido vía teléfono}
+  \ucname{Generando Pedido Telefónico}
   \ucpre{La solicitud a informar existe}
   \ucpost{La solicitud de viaje está creada}
   \ucactor{Operador telefónico/radial}
@@ -712,7 +756,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 
 \begin{usecase}
-  \ucname{Modificando Estado a disponible}
+  \ucname{Modificando Estado del taxista a disponible}
   \ucpre{True}
   \ucpost{El sistema marca al taxista como disponible}
   \ucactor{Operador telefónico/radial}
@@ -726,7 +770,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 % 
 % 
 \begin{usecase}
-  \ucname{Modificando Estado a no Disponible}
+  \ucname{Modificando Estado del taxista a no Disponible}
   \ucpre{True}
   \ucpost{El sistema marca al taxista como no disponible}
   \ucactor{Operador telefónico/radial}
