@@ -1247,8 +1247,24 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
   \item[Taxista:] Un empleado de la empresa que maneja taxis.
 
   \item[Taxi:] Un automóvil de la empresa que cumple con todas las regulaciones para poder ser usado como taxi.
-
+  
+   \item[Estado Solicitud:] Es el estado en el que se encuentra el taxi, puede ser:
+    \begin{itemize}
+     \item Libre: Esta siendo conducido por un taxista pero sin ning\'un viaje asignado.
+     \item En viaje: Esta siendo conducido por un taxista pero con un viaje asignado.
+     \item En cochera: el taxi esta guardado en cochera, no siendo usado en este momento.
+    \end{itemize}
+  
   \item[Solicitud De Viaje:] Un pedido de un cliente para realizar un viaje desde una dirección origen a una dirección destino.
+  
+  \item[Estado Solicitud:] Es el estado en el que se encuentra la solicitud, puede ser:
+    \begin{itemize}
+     \item Esperando asignación: Se creo la solicitud y se esta esperando que se le asigne un taxi y un taxista.
+     \item En viaje: Ya se le asigno un taxi y un taxista pero todav\'ia no termin\'o el viaje.
+     \item Finalizada: Ya se terminó el viaje sin inconvenientes.
+     \item Cancelada: La solicitud fue cancelada, por lo cual nunca llego a finalizarse.
+    \end{itemize}
+
 
   \item[Solicitud De Viaje Web/móvil:] Es un caso particular de una Solicitud de Viaje, realizada a través de las plataformas móvil o web y con un conjunto de preferencias.
 
