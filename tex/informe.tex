@@ -64,6 +64,14 @@
   \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=16cm]{diagramas/#1}%
 }
 
+\newcommand{\diagramavfig}[2]{%
+  \begin{figure}[H]
+    \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=16cm]{diagramas/#1}%
+    \caption{#2}
+    \label{fig:#1}
+  \end{figure}
+}
+
 \newcommand{\diagramavtrim}[2]{%
   \includegraphics[type=pdf,ext=.pdf,read=.pdf,width=16cm,trim=0 #2 0 0,clip]{diagramas/#1}%
 }
@@ -1346,40 +1354,33 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 
 \subsection{Logueo de Usuario}
 \label{sec:da-logueo-de-usuario}
-
-\diagramav{da-logueo-de-usuario}
+\diagramavfig{da-logueo-de-usuario}{Diagrama de actividad: Logueo de Usuario}
 
 
 \subsection{Calificación de taxista vía aplicación}
 \label{sec:calificacion-aplicacion}
-
-\diagramav{da-calificar-taxista}
+\diagramavfig{da-calificar-taxista}{Diagrama de actividad: Calificación de taxista vía aplicación}
 
 \subsection{Realizar pedido}
 \label{sec:da-pedido-alto-nivel}
-
-\diagramav{da-pedido-alto-nivel}
+\diagramavfig{da-pedido-alto-nivel}{Diagrama de actividad: Realizar pedido}
 
 
 \subsection{Pedir taxi vía M\'ovil}
 \label{sec:pedido-aplicacion-movil}
-
-\diagramav{da-realizar-pedido-aplicacion-movil}
+\diagramavfig{da-realizar-pedido-aplicacion-movil}{Diagrama de actividad: Pedir taxi vía M\'ovil}
 
 \subsection{Pedir taxi vía Web}
 \label{sec:pedido-aplicacion-web}
-
-\diagramav{da-realizar-pedido-aplicacion-web}
+\diagramavfig{da-realizar-pedido-aplicacion-web}{Diagrama de actividad: Pedir taxi vía Web}
 
 \subsection{Pedir taxi vía Telefónica}
 \label{sec:pedido-aplicacion-telefonica}
-
-\diagramav{da-realizar-pedido-aplicacion-telefonica}
+\diagramavfig{da-realizar-pedido-aplicacion-telefonica}{Diagrama de actividad: Pedir taxi vía Telefónica}
 
 \subsection{Manejo de imprevisto del taxista}
 \label{sec:¡mprevisto-taxista}
-
-\diagramav{da-imprevisto}
+\diagramavfig{da-imprevisto}{Diagrama de actividad: Manejo de imprevisto del taxista}
 
 
 \section{FSM}
@@ -1425,18 +1426,15 @@ En los siguientes FSM, buscamos modelar la siguiente situaci\'on:
 
 \subsection{$Cliente_i$}
 \label{sec:fsm-usuario}
-
-\diagramav{fsm-usuario}
+\diagramavfig{fsm-usuario}{FSM: Usuario}
 
 \subsection{$Sistema_i$}
 \label{sec:fsm-sistema}
-
-\diagramav{fsm-sistema}
+\diagramavfig{fsm-sistema}{FSM: Sistema}
 
 \subsection{$Taxista_j$}
 \label{sec:fsm-taxi}
-
-\diagramav{fsm-taxi}
+\diagramavfig{fsm-taxi}{FSM: Taxi}
 
 \subsection{Aclaraciones}
 
