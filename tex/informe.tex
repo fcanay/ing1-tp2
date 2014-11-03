@@ -668,29 +668,29 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 %%%%% Informando Calificación %%%%%
 
-\begin{usecase} %TODO Sacar Lorem Ipsum
+\begin{usecase} 
   \ucname{Guardando Calificación}
-  \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpre{El Cliente esta logueado}
+  \ucpost{Hay un nueva calificación guardada en el sistema.}
+  \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{La aplicación manda la calificación del cliente.}{}
+  \ucstep{El sistema verifica que el viaje que se esta calificando corresponda al cliente en cuesti\'on}{\ucalt{Le env\'ia un error a la aplicación diciendo que el viaje calificado no corresponde con el cliente.}}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%%% Informando Calificación %%%%%
 
-\begin{usecase} %TODO Sacar Lorem Ipsum
+\begin{usecase} 
   \ucname{Enviando Solicitud de Viaje para el Taxista}
   \ucpre{}
-  \ucpost{}
-  \ucactor{}
+  \ucpost{La aplicación env\'ia la solicitud al taxista}
+  \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El sistema le manda la solicitud a la aplicación para cierto taxista.}{}
+  \ucstep{La Apliación le manda la solicitud al taxista.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -700,7 +700,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucname{Enviando Cancelación de Viaje para el Taxista}
   \ucpre{}
   \ucpost{}
-  \ucactor{}
+  \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
@@ -714,7 +714,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucname{Informando Respuesta Taxista}
   \ucpre{}
   \ucpost{}
-  \ucactor{}
+  \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
@@ -729,7 +729,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucname{Enviando Confirmación de Viaje a Taxista}
   \ucpre{}
   \ucpost{}
-  \ucactor{}
+  \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
