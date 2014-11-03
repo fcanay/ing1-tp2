@@ -604,16 +604,16 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 %%%%% Informando Cancelación Del Cliente %%%%%
 
 \begin{usecase}
-  \ucname{Informando Cancelación Del Cliente} %TODO lo habria q decirle a la aplicacion q avise al taxista?
+  \ucname{Informando Cancelación Del Cliente}
   \ucpre{Un cliente ya logueado indicó a la aplicación que desea cancelar una solicitud pendiente.}
-  \ucpost{El sistema cancela la solicitud pendiente del cliente.}
+  \ucpost{El sistema cancela la solicitud del cliente.}
   \ucactor{Aplicación}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{La aplicación informa que un cliente desea cancelar su solicitud, enviando los datos del mismo al sistema.}{}
   \ucstep{El sistema verifica que los datos recibidos correspondan a un cliente existente y que el mismo tenga una solicitud pendiente.}{\ucalt{Los datos recibidos no corresponden a un cliente existente o el mismo no tiene una solicitud pendiente. El sistema descarta el mensaje. Fin caso de uso.}}
   \ucstep{El sistema marca la solicitud como cancelada}{}
-  \ucstep{Incluye CU ``Enviando Cancelación de Viaje para el Taxista''}{}
+  \ucstep{El sistema avisa de la cancelación al taxista, usa cu ``Enviando Cancelación de Viaje para el Taxista''}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -643,9 +643,12 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 \begin{usecasesteps}
   \ucstep{La aplicación envía al sistema una solicitud de viaje incluyendo las direcciones de orígen y destino y las preferencias del cliente.}{}
   \ucstep{El sistema verifica que los datos recibidos sean válidos.}{\ucalt{Los datos son inválidos. El sistema informa a la aplicación que no se pudo completar la acción. Fin caso de uso.}}
-  \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente, y envía el listado a la aplicación.}{No hay candidatos que satisfagan las preferencias del cliente. El sistema informa a la aplicación que sse precisan condiciones menos restrictivas. Ir a paso 1.} %TODO faltaria describir mejor este proceso, el sistema le pide a la aplicacion q le avise a los taxistas, la aplicacion le da al sistema la respuesta de los taxistas (q pasa los taxista q se comunican por radio), y ahi se lo manda al cliente (via aplicacion).
+  \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente.}{} 
+  \ucstep{El sistema le ofrece el viaje a los taxistas seleccionados, usa cu ``Enviando Solicitud de Viaje para el Taxista''}{}
+  \ucstep{El sistema recibe la respuesta de los taxistas, usa cu ``Informando Respuesta Taxista''}{}
+  \ucstep{Corrobora que aunque sea uno haya aceptado y le da a la aplicación los 10 que hayan aceptado más adecuados (o todos si hay menos que 10)}{No hay candidatos disponibles que satisfagan las preferencias del cliente. El sistema informa a la aplicación que se precisan condiciones menos restrictivas. Ir a paso 1.}
   \ucstep{La aplicación envía al sistema el candidato que eligió el cliente para realizar su viaje.}{}
-  \ucstep{El sistema confirma al taxista seleccionado que se ha programado el viaje mediante la aplicación del mismo.}{}
+  \ucstep{El sistema confirma al taxista seleccionado que se ha programado el viaje. usa cu `` Enviando Confirmación de Viaje a Taxista''}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 \emph{Nota: este proceso se explica detalladamente en la sección \ref{sec:pedido-aplicacion} (diagrama de actividad).}
@@ -707,6 +710,20 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
+
+%%%%% Informando Calificación %%%%%
+
+\begin{usecase} %TODO Sacar Lorem Ipsum
+  \ucname{Enviando Confirmación de Viaje a Taxista}
+  \ucpre{}
+  \ucpost{}
+  \ucactor{}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
+  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
 
 %%%%% Informando Posición %%%%%
 
