@@ -658,7 +658,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente.}{} 
   \ucstep{El sistema le ofrece el viaje a los taxistas seleccionados, usa cu ``Enviando Solicitud de Viaje para el Taxista''}{}
   \ucstep{El sistema recibe la respuesta de los taxistas, usa cu ``Informando Respuesta Taxista''}{}
-  \ucstep{Corrobora que aunque sea uno haya aceptado y le da a la aplicación los 10 que hayan aceptado más adecuados (o todos si hay menos que 10)}{\ucalt{No hay candidatos disponibles que satisfagan las preferencias del cliente. El sistema informa a la aplicación que se precisan condiciones menos restrictivas. Ir a paso 1.}}
+  \ucstep{El sistema corrobora que al menos un taxista haya aceptado y le informa a la aplicación los 10 más adecuados que hayan aceptado (o a todos si hay menos que 10)}{\ucalt{No hay candidatos disponibles que satisfagan las preferencias del cliente. El sistema informa a la aplicación que se precisan condiciones menos restrictivas. Ir a paso 1.}}
   \ucstep{La aplicación envía al sistema el candidato que eligió el cliente para realizar su viaje.}{}
   \ucstep{El sistema confirma al taxista seleccionado que se ha programado el viaje. usa cu `` Enviando Confirmación de Viaje a Taxista''}{}
   \ucstep{Fin caso de uso.}{}
@@ -684,7 +684,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase} 
   \ucname{Enviando Solicitud de Viaje para el Taxista}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{La aplicación env\'ia la solicitud al taxista}
   \ucactor{Aplicación M\'ovil}
 \end{usecase}
@@ -698,7 +698,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Enviando Cancelación de Viaje para el Taxista}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{Se le aviso al taxista la cancelación del viaje}
   \ucactor{Aplicación M\'ovil}
 \end{usecase}
@@ -740,7 +740,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Informando Posición}
-  \ucpre{} 
+  \ucpre{}
   \ucpost{El sistema está informado acerca de la posición dada por el GPS}
   \ucactor{GPS}
 \end{usecase}
@@ -785,7 +785,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Modificando Estado del taxista a disponible}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{El sistema marca al taxista como disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
@@ -799,7 +799,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 % 
 \begin{usecase}
   \ucname{Modificando Estado del taxista a no Disponible}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{El sistema marca al taxista como no disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
