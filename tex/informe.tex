@@ -658,7 +658,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucstep{El sistema busca entre los taxistas y taxis disponibles cuáles son los candidatos más adecuados según las preferencias del cliente.}{} 
   \ucstep{El sistema le ofrece el viaje a los taxistas seleccionados, usa cu ``Enviando Solicitud de Viaje para el Taxista''}{}
   \ucstep{El sistema recibe la respuesta de los taxistas, usa cu ``Informando Respuesta Taxista''}{}
-  \ucstep{Corrobora que aunque sea uno haya aceptado y le da a la aplicación los 10 que hayan aceptado más adecuados (o todos si hay menos que 10)}{No hay candidatos disponibles que satisfagan las preferencias del cliente. El sistema informa a la aplicación que se precisan condiciones menos restrictivas. Ir a paso 1.}
+  \ucstep{Corrobora que aunque sea uno haya aceptado y le da a la aplicación los 10 que hayan aceptado más adecuados (o todos si hay menos que 10)}{\ucalt{No hay candidatos disponibles que satisfagan las preferencias del cliente. El sistema informa a la aplicación que se precisan condiciones menos restrictivas. Ir a paso 1.}}
   \ucstep{La aplicación envía al sistema el candidato que eligió el cliente para realizar su viaje.}{}
   \ucstep{El sistema confirma al taxista seleccionado que se ha programado el viaje. usa cu `` Enviando Confirmación de Viaje a Taxista''}{}
   \ucstep{Fin caso de uso.}{}
@@ -696,44 +696,43 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 %%%%% Informando Calificación %%%%%
 
-\begin{usecase} %TODO Sacar Lorem Ipsum
+\begin{usecase}
   \ucname{Enviando Cancelación de Viaje para el Taxista}
   \ucpre{}
-  \ucpost{}
+  \ucpost{Se le aviso al taxista la cancelación del viaje}
   \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El sistema le pide a la aplicación m\'ovil que avise al taxista de la cancelación.}{}
+  \ucstep{La aplicación le avisa al taxista.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 %%%%% Informando Calificación %%%%%
 
-\begin{usecase} %TODO Sacar Lorem Ipsum
+\begin{usecase}
   \ucname{Informando Respuesta Taxista}
-  \ucpre{}
-  \ucpost{}
+  \ucpre{E taxista respondi\'o}
+  \ucpost{El sistema sabe la respuesta del taxista}
   \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{La aplicación le informa al sistema la respuesta del taxista.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
 
 %%%%% Informando Calificación %%%%%
 
-\begin{usecase} %TODO Sacar Lorem Ipsum
+\begin{usecase} 
   \ucname{Enviando Confirmación de Viaje a Taxista}
   \ucpre{}
-  \ucpost{}
+  \ucpost{Se le aviso al taxista la Confirmación del viaje}
   \ucactor{Aplicación M\'ovil}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{Integer arcu ante, vulputate eu felis euismod, dignissim facilisis lacus.}{}
-  \ucstep{Proin sollicitudin molestie blandit. Sed a auctor elit. Aenean eu magna nibh. Etiam id dolor massa.}{\ucalt{Vestibulum mattis lacus vitae quam consectetur, non ultricies elit vehicula.}}
+  \ucstep{El sistema le pide a la aplicación m\'ovil que confirme al taxista el viaje.}{}
+  \ucstep{La aplicación le confirma al taxista el viaje.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
@@ -741,7 +740,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Informando Posición}
-  \ucpre{El taxista asociado al GPS está en el taxi} %TODO no entiendo q significa
+  \ucpre{} 
   \ucpost{El sistema está informado acerca de la posición dada por el GPS}
   \ucactor{GPS}
 \end{usecase}
@@ -769,7 +768,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 %%%%% Informando Cancelación %%%%%
 
 \begin{usecase}
-  \ucname{Informando Cancelación} %TODO no puede ser via App ?
+  \ucname{Informando Cancelación}
   \ucpre{La solicitud a cancelar existe, y el viaje asociado a la solicitud no comenzó}
   \ucpost{La solicitud está cancelada}
   \ucactor{Operador telefónico/radial}
@@ -786,12 +785,12 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Modificando Estado del taxista a disponible}
-  \ucpre{True}
+  \ucpre{}
   \ucpost{El sistema marca al taxista como disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{El Operador informa acerca de la modificacón de estado al sistema}{}
+  \ucstep{El Operador informa acerca de la modificación de estado al sistema}{}
   \ucstep{El sistema verifica que el taxista estuviese marcado como no disponible.}{\ucalt{Si el sistema no estaba marcado como no disponible descarta el mensaje. Fin caso de uso}}
   \ucstep{El sistema marca al taxista como disponible}{}
   \ucstep{Fin caso de uso.}{}
@@ -800,12 +799,12 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 % 
 \begin{usecase}
   \ucname{Modificando Estado del taxista a no Disponible}
-  \ucpre{True}
+  \ucpre{}
   \ucpost{El sistema marca al taxista como no disponible}
   \ucactor{Operador telefónico/radial}
 \end{usecase}
 \begin{usecasesteps}
-  \ucstep{El Operador informa acerca de la modificacón de estado al sistema}{}
+  \ucstep{El Operador informa acerca de la modificación de estado al sistema}{}
   \ucstep{El sistema verifica que el taxista estuviese marcado como disponible.}{\ucalt{Si el sistema no estaba marcado como disponible descarta el mensaje. Fin caso de uso}}
   \ucstep{El sistema marca al taxista como disponible}{}
   \ucstep{Si el sistema tenía un viaje asignado para el taxista lo cancela. Además le informa al Operador del viaje cancelado}{}
@@ -817,14 +816,14 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Consultando Indicadores}
-  \ucpre{True}
+  \ucpre{}
   \ucpost{El sistema le muestra los indicadores al directivo}
   \ucactor{Directivos}
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El directivo se autentica.}{}
   \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
-  \ucstep{El sistema muestra los indicadores.}{} %TODO tenemos q explicar como se arman los indicadores?
+  \ucstep{El sistema muestra los indicadores.}{} 
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
