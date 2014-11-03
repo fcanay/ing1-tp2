@@ -726,7 +726,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase} 
   \ucname{Enviando Confirmación de Viaje a Taxista}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{Se le aviso al taxista la Confirmación del viaje}
   \ucactor{Aplicación M\'ovil}
 \end{usecase}
@@ -740,7 +740,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Informando Posición}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{El sistema está informado acerca de la posición dada por el GPS}
   \ucactor{GPS}
 \end{usecase}
@@ -782,7 +782,6 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 %%%%% Modificando Estado %%%%%
 
-
 \begin{usecase}
   \ucname{Modificando Estado del taxista a disponible}
   \ucpre{True}
@@ -795,8 +794,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
   \ucstep{El sistema marca al taxista como disponible}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
-% 
-% 
+ 
 \begin{usecase}
   \ucname{Modificando Estado del taxista a no Disponible}
   \ucpre{True}
@@ -816,7 +814,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 
 \begin{usecase}
   \ucname{Consultando Indicadores}
-  \ucpre{}
+  \ucpre{True}
   \ucpost{El sistema le muestra los indicadores al directivo}
   \ucactor{Directivos}
 \end{usecase}
@@ -1355,32 +1353,41 @@ A continuación realizaremos aclaraciones sobre algunas de las clases y asociaci
 \label{sec:da-logueo-de-usuario}
 \diagramavfig{da-logueo-de-usuario}{Diagrama de actividad: Logueo de Usuario}
 
+Este DA se corresponde con el caso de uso 3, ''Logueando Usuario``. El actor \emph{Aplicación} se corresponde con el del DA, llamado \emph{Aplicación(web/móvil)}.
 
 \subsection{Calificación de taxista vía aplicación}
 \label{sec:calificacion-aplicacion}
 \diagramavfig{da-calificar-taxista}{Diagrama de actividad: Calificación de taxista vía aplicación}
 
+Este DA se corresponde con el caso de uso 5, llamado \emph{Guardando calificación}. En el que el actor \emph{Aplicación} se corresponde con el del DA, llamado \emph{Aplicación(web/móvil)}.
+
 \subsection{Realizar pedido}
 \label{sec:da-pedido-alto-nivel}
 \diagramavfig{da-pedido-alto-nivel}{Diagrama de actividad: Realizar pedido}
-
 
 \subsection{Pedir taxi vía M\'ovil}
 \label{sec:pedido-aplicacion-movil}
 \diagramavfig{da-realizar-pedido-aplicacion-movil}{Diagrama de actividad: Pedir taxi vía M\'ovil}
 
+Este diagrama esta ligado al caso de uso 4, llamado \emph{Generando pedido vía aplicación}. En ambos interviene el sistema y la aplicación. Sin embargo este diagrama hace referencia a la generación de un pedido mediante la aplicación móvil y no mediante la web. 
+
 \subsection{Pedir taxi vía Web}
 \label{sec:pedido-aplicacion-web}
 \diagramavfig{da-realizar-pedido-aplicacion-web}{Diagrama de actividad: Pedir taxi vía Web}
+
+Este diagrama hace referencia a como se genera un pedido de un taxi que se haya realizado mediante la aplicación web. También está vinculado con el caso de uso 4. El caso de uso 4.
 
 \subsection{Pedir taxi vía Telefónica}
 \label{sec:pedido-aplicacion-telefonica}
 \diagramavfig{da-realizar-pedido-aplicacion-telefonica}{Diagrama de actividad: Pedir taxi vía Telefónica}
 
+Este diagrama muestra como se genera un pedido de un taxi hecho mediante la vía telefónica. También sirve para expresar lo dicho en el caso de uso 11, llamado \emph{Generando pedido telefónico}. 
+
 \subsection{Manejo de imprevisto del taxista}
 \label{sec:¡mprevisto-taxista}
 \diagramavfig{da-imprevisto}{Diagrama de actividad: Manejo de imprevisto del taxista}
 
+Este diagrama hace referencia a cómo el sistema maneja un imprevisto por parte del taxista, que hace que pase a estar no disponible. En el diagrama también aparece reflejado el caso de uso 14, llamado \emph{Modificando estado del taxista a no disponible}. Esto es así porque en el proceso que muestra el diagrama, el sistema es notificado de un imprevisto de un taxista y debe marcarlo como no disponible y cancelar su viaje si éste lo tuviese.
 
 \section{FSM}
 
