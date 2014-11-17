@@ -665,6 +665,34 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 \end{usecasesteps}
 \emph{Nota: este proceso se explica detalladamente en la sección \ref{sec:pedido-aplicacion-movil} (diagrama de actividad).}
 
+%LOS NUEVOS
+
+\begin{usecase}
+  \ucname{Generando viaje periódico}
+  \ucpre{Un usuario logueado completó el formulario de solicitud de viaje periódico, en la aplicación.}
+  \ucpost{El sistema registra una nueva solicitud de viaje periódico.}
+  \ucactor{Aplicación}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{La aplicación envía al sistema una solicitud de viaje incluyendo las direcciones de orígen y destino y la periodicidad del viaje.}{}
+  \ucstep{El sistema verifica que los datos recibidos sean válidos.}{\ucalt{Los datos son inválidos. El sistema informa a la aplicación que no se pudo completar la acción. Fin caso de uso.}}
+  \ucstep{El sistema guarda un recordatorio que generará automáticamente un viaje, en el momento indicado.}{}
+  \ucstep{El sistema confirma al cliente que su solicitud de viaje periódico se realizó con éxito.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+\begin{usecase}
+  \ucname{Consultando posición del taxista}
+  \ucpre{Un usuario logueado que ya solicitó un viaje, quiere saber la posición del taxista.}
+  \ucpost{El sistema le envía la posición del taxista asociado a su viaje, al cliente.}
+  \ucactor{Aplicación}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{La aplicación le pregunta al sistema acerca de la posición del taxista asociado al viaje del usuario.}{}
+  \ucstep{El sistema calcula la hora estimada de llegada en base a la posición guardada del taxista.}{\ucalt{Si no tiene los datos de la posición actual del taxista, envía ``No se conoce la posición del taxista''.}}
+  \ucstep{El sistema envía la hora estimada de llegada}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
 
 %%%%% Informando Calificación %%%%%
 
