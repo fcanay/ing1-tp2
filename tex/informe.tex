@@ -849,7 +849,71 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 \begin{usecasesteps}
   \ucstep{El directivo se autentica.}{}
   \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
-  \ucstep{El sistema muestra los indicadores.}{} 
+  \ucstep{El directivo indica que desea visualizar los indicadores.}{}
+  \ucstep{El sistema muestra los indicadores.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+
+%%%%% Agregando Taxista %%%%%
+
+\begin{usecase}
+  \ucname{Agregando Taxista}
+  \ucpre{El taxista a agregar no existe en el sistema}
+  \ucpost{El taxista fue agregado al sistema}
+  \ucactor{Directivos}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El directivo se autentica.}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El directivo indica que desea agregar un nuevo taxista al sistema.}{}
+  \ucstep{El sistema muestra el formulario de incorporación de un taxista.}{}
+  \ucstep{El directivo completa los datos del nuevo taxista y confirma la operación.}{}
+  \ucstep{El sistema sistema verifica que los datos sean válidos.}{\ucalt{Si los datos son inválidos, el sistema indica que hubo un error. Ir a paso 5.}}
+  \ucstep{Los datos ingresados son válidos; el sistema incorpora el nuevo taxista en sus registros.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+
+%%%%% Modificando Taxista %%%%%
+
+\begin{usecase}
+  \ucname{Modificando Taxista}
+  \ucpre{El taxista a modificar existe en el sistema}
+  \ucpost{Los datos del taxista fueron modificados dentro del sistema}
+  \ucactor{Directivos}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El directivo se autentica.}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El directivo indica que desea modificar los datos de un taxista.}{}
+  \ucstep{El sistema muestra un panel de búsqueda para los registros de taxistas.}{}
+  \ucstep{El directivo localiza el taxista que desea modificar y confirma que desea realizar una modificación.}{}
+  \ucstep{El sistema muestra los datos del taxista elegido junto a un formulario de edición.}{}
+  \ucstep{El directivo realiza los cambios necesarios y confirma la operación.}{}
+  \ucstep{El sistema sistema verifica que los datos sean válidos.}{\ucalt{Si los datos son inválidos, el sistema indica que hubo un error. Ir a paso 7.}}
+  \ucstep{Los datos ingresados son válidos; el sistema guarda los cambios realizados en los datos del taxista.}{}
+  \ucstep{Fin caso de uso.}{}
+\end{usecasesteps}
+
+
+%%%%% Eliminando Taxista %%%%%
+
+\begin{usecase}
+  \ucname{Eliminando Taxista}
+  \ucpre{El taxista a eliminar existe en el sistema}
+  \ucpost{El taxista es eliminado de los registros del sistema}
+  \ucactor{Directivos}
+\end{usecase}
+\begin{usecasesteps}
+  \ucstep{El directivo se autentica.}{}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El directivo indica que desea eliminar un taxista.}{}
+  \ucstep{El sistema muestra un panel de búsqueda para los registros de taxistas.}{}
+  \ucstep{El directivo localiza el taxista que desea eliminar e indica que desea realizar la operación.}{}
+  \ucstep{El sistema pide confirmación.}{}
+  \ucstep{El directivo confirma que desea realizar la operación.}{\ucalt{El directivo cancela la operación. Ir al paso 4.}}
+  \ucstep{El sistema elimina efectivamente al taxista de sus registros.}{}
   \ucstep{Fin caso de uso.}{}
 \end{usecasesteps}
 
