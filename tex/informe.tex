@@ -865,7 +865,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El directivo se autentica.}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, se bloquea. Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
   \ucstep{El directivo indica que desea agregar un nuevo taxista al sistema.}{}
   \ucstep{El sistema muestra el formulario de incorporación de un taxista.}{}
   \ucstep{El directivo completa los datos del nuevo taxista y confirma la operación.}{}
@@ -885,7 +885,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El directivo se autentica.}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, éste se bloquea. Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
   \ucstep{El directivo indica que desea modificar los datos de un taxista.}{}
   \ucstep{El sistema muestra un panel de búsqueda para los registros de taxistas.}{}
   \ucstep{El directivo localiza el taxista que desea modificar y confirma que desea realizar una modificación.}{}
@@ -907,7 +907,7 @@ En esta sección vamos a hablar de los \emph{o-refinamientos} del diagrama de ob
 \end{usecase}
 \begin{usecasesteps}
   \ucstep{El directivo se autentica.}{}
-  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, no se puede consultar indicadores por 5 minutos (se bloquea). Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
+  \ucstep{El sistema valida los datos.}{\ucalt{Si el sistema no puede validar los datos y es el tercer intento, éste se bloquea. Si el sistema no puede validar los datos y no es el tercer intento, ir a paso 1.}}
   \ucstep{El directivo indica que desea eliminar un taxista.}{}
   \ucstep{El sistema muestra un panel de búsqueda para los registros de taxistas.}{}
   \ucstep{El directivo localiza el taxista que desea eliminar e indica que desea realizar la operación.}{}
@@ -1104,15 +1104,15 @@ Este diagrama hace referencia a cómo el sistema maneja un imprevisto por parte 
 
 \section{FSM}
 
-En esta sección, vamos a utilizar FSM para detallar el comportamiento de los usuarios, el sistema y los taxistas al momento de realizar una solicitud y generar un viaje asociado a esa solicitud.
+En esta sección, vamos a utilizar FSM para detallar el comportamiento de los usuarios, el sistema y los taxistas al momento de realizar una solicitud y generar un viaje asociado a la misma.
 
-La FSM que describira esta comportamiento ser\'a la generada por la composici\'on en paralelo de n m\'aquinas $Cliente_i$, n m\'aquinas $Sistema_i$ y m m\'aquinas $Taxista_j$.
+La FSM que describirá este comportamiento ser\'a la generada por la composici\'on en paralelo de $n$ m\'aquinas $Cliente_i$, $n$ m\'aquinas $Sistema_i$ y $m$ m\'aquinas $Taxista_j$.
 
 Donde las m\'aquinas $Cliente_i$ representa el comportamiento de un Cliente Registrado.
 
-Las m\'aquinas $Sistema_i$ representan una porci\'on del sistema encargada de atender al $Cliente_i$ (Esto puede ser asociado con la idea de un \emph{thread}\footnote{Cuando haya muchos usuarios no se podrá hacer una asociación uno a uno con los \emph{threads} por una limitación de recursos. La solución podría ser que cada \emph{thread} atienda a un conjunto de usuarios a la vez.}). El Sistema en general ser\'a la composici\'on en paralelo de n $Sistema_i$.
+Las m\'aquinas $Sistema_i$ representan una porci\'on del sistema encargada de atender al $Cliente_i$ (Esto puede ser asociado con la idea de un \emph{thread}\footnote{Cuando haya muchos usuarios no se podrá hacer una asociación uno a uno con los \emph{threads} por una limitación de recursos. La solución podría ser que cada \emph{thread} atienda a un conjunto de usuarios a la vez.}). El Sistema en general ser\'a la composici\'on en paralelo de $n$ $Sistema_i$.
 
-Y por ultimo $Taxista_j$ representa a uno de los taxistas de la flota.
+Y por último, $Taxista_j$ representa a uno de los taxistas de la flota.
 
 En las FSMs vamos a utilizar la siguiente nomenclatura:
 
@@ -1121,7 +1121,7 @@ En las FSMs vamos a utilizar la siguiente nomenclatura:
 	\item Usamos $||$ para referirnos al \emph{or} lógico
 	\item Usamos $x\ in\ a$ para ver si el elemento $x$ pertenece al array $a$.Como el tamaño de $a$ es finito, $x\ in\ a$ se desglosa en $x\ ==\ a[0]\ ||\ ... \ x\ ==\ a[tam-1]$, siendo $tam$ el tamaño de $a$. Por lo que termina siendo finito.
 	\item Usamos $x\ not\ in\ a$ para ver si el elemento $x$ no pertenece al array $a$. $x\ not\ in\ a$ se desglosa igual que el anterior, pero agregando un \emph{not} al principio. 
-	\item Usamos $Sacar\ x\ de\ a$ para referirnos a sacar al elemento $x$ del array $a$. Esto se puede desglosar en muchas transiciones no deterministicas, donde la primera tenga condición [a[0] == x] y acci\'on {a[0]=0}, la segunda sea [a[1] == x] y acci\'on {a[1]=0} y as\'i sucesivamente todas la opciones.
+	\item Usamos $Sacar\ x\ de\ a$ para referirnos a sacar al elemento $x$ del array $a$. Esto se puede desglosar en muchas transiciones no determinísticas, donde la primera tenga condición [a[0] == x] y acci\'on {a[0]=0}, la segunda sea [a[1] == x] y acci\'on {a[1]=0} y as\'i sucesivamente todas la opciones.
 	
 
 \end{itemize}
@@ -1137,7 +1137,7 @@ En los siguientes FSM, buscamos modelar la siguiente situaci\'on:
  \item Cuando aceptan una solicitud no reciben m\'as solicitudes hasta que se resuelva ese pedido.
  \item Si pasan 1200 segundo sin que ning\'un taxista acepte, se le manda al cliente un aviso que sus preferencias no pueden ser cumplidas.(Este tiempo tambi\'en puede ser configurado por la empresa)
  \item Si 10 taxistas confirman, o se acaba el tiempo con aunque sea un taxista confirmado, el sistema env\'ia al cliente los taxistas que aceptaron.
- \item El cliente elije uno, y los dem\'as dejan de estar bloqueados, pudiendo recibir nuevas solicitudes.
+ \item El cliente elige uno, y los dem\'as dejan de estar bloqueados, pudiendo recibir nuevas solicitudes.
  \item El sistema confirma el viaje al taxista y esta parte a buscar al cliente.
  \item Cuando termina el viaje el taxista vuelve a estar disponible para recibir nuevas solicitudes.
 \end{itemize}
